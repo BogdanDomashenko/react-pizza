@@ -410,12 +410,13 @@ a {
 }
 body {
   background-color: #ffdf8c;
+  padding: 50px 0;
 }
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
   background-color: #fff;
-  margin: 50px auto;
+  margin: 0 auto;
   border-radius: 10px;
   max-width: 1400px;
 }

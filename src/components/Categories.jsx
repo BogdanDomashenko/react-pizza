@@ -16,15 +16,16 @@ export default function Categories({ items, onClickItem }) {
         >
           Все
         </li>
-        {items.map((item, index) => (
-          <li
-            className={activeItem === item ? "active" : ""}
-            onClick={() => onSelectItem(item)}
-            key={`${item}_${index}`}
-          >
-            {item}
-          </li>
-        ))}
+        {items &&
+          items.map((item, index) => (
+            <li
+              className={activeItem === item ? "active" : ""}
+              onClick={() => onSelectItem(item)}
+              key={`${item}_${index}`}
+            >
+              {item}
+            </li>
+          ))}
       </ul>
     </div>
   );
