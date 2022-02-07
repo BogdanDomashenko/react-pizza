@@ -283,6 +283,9 @@ a {
 .sort {
   position: relative;
 }
+.sort .rotated {
+  transform: rotate(180deg);
+}
 .sort__label {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -301,6 +304,12 @@ a {
   color: #fe5f1e;
   border-bottom: 1px dashed #fe5f1e;
   cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .sort__popup {
   position: absolute;
