@@ -392,6 +392,12 @@ a {
   -ms-user-select: none;
   user-select: none;
 }
+
+.pizza-block__selector ul .disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .pizza-block__selector ul li.active {
   background: #ffffff;
   -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
