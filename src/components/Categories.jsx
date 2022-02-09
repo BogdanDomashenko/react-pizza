@@ -5,6 +5,7 @@ export default function Categories({ items, onClickItem }) {
 
   const onSelectItem = (index) => {
     setActiveItem(index);
+    onClickItem(index);
   };
 
   return (
@@ -19,8 +20,8 @@ export default function Categories({ items, onClickItem }) {
         {items &&
           items.map((item, index) => (
             <li
-              className={activeItem === item ? "active" : ""}
-              onClick={() => onSelectItem(item)}
+              className={activeItem === index ? "active" : ""}
+              onClick={() => onSelectItem(index)}
               key={`${item}_${index}`}
             >
               {item}
