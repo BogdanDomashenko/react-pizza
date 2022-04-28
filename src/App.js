@@ -1,24 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import store from "./redux/store";
-import { useDispatch } from "react-redux";
-import { setPizzas } from "./redux/actions/pizzas";
 
 import { Home, Cart, PageNotFound } from "./pages";
 import { Header } from "./components";
 
 import "./index.css";
-import axios from "axios";
-
 function App() {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    axios.get("./db.json").then((response) => {
-      dispatch(setPizzas(response.data.pizzas));
-    });
-  }, []);
-
   return (
     <div className="wrapper">
       <Header />

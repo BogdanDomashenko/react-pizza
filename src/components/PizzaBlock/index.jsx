@@ -2,7 +2,16 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
+function PizzaBlock({
+  imageUrl,
+  name,
+  types,
+  sizes,
+  price,
+  category,
+  rating,
+  onAddToCart,
+}) {
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(types[0]);
 
@@ -48,7 +57,7 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="pizza-block__price">от {price}</div>
         <div className="button button--outline button--add">
           <svg
             width="12"
@@ -62,7 +71,7 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
+          <span onClick={onAddToCart}>Добавить</span>
           <i>2</i>
         </div>
       </div>

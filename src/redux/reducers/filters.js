@@ -1,6 +1,6 @@
 const initialState = {
   sortBy: "popular",
-  category: 0,
+  category: null,
 };
 
 const filers = (state = initialState, action) => {
