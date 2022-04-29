@@ -25,13 +25,15 @@ function Home() {
 
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const { sortBy } = useSelector(({ filters }) => filters);
+  const { items: cartItems } = useSelector((state) => state.cart);
+
   const [category, setCategory] = useCategory();
 
   const pizzas = usePizzas();
 
   useEffect(() => {
     dispatch(fetchPizzas());
-  }, [category]);
+  }, [category, sortBy]);
 
   const onSelectCategory = useCallback((index) => {
     setCategory(index);
@@ -65,10 +67,11 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoaded
+        {isLoaded && pizzas
           ? pizzas.map((item, index) => (
               <PizzaBlock
                 key={index}
+                cartCount={cartItems[item.id] ? cartItems[item.id].count : 0}
                 {...item}
                 onAddToCart={() => onAddItemToCart(item)}
               />

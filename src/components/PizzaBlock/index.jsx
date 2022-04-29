@@ -3,6 +3,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 
 function PizzaBlock({
+  cartCount,
   imageUrl,
   name,
   types,
@@ -58,7 +59,10 @@ function PizzaBlock({
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price}</div>
-        <div className="button button--outline button--add">
+        <div
+          className="button button--outline button--add"
+          onClick={onAddToCart}
+        >
           <svg
             width="12"
             height="12"
@@ -71,8 +75,8 @@ function PizzaBlock({
               fill="white"
             />
           </svg>
-          <span onClick={onAddToCart}>Добавить</span>
-          <i>2</i>
+          <span>Добавить</span>
+          <i>{cartCount}</i>
         </div>
       </div>
     </div>

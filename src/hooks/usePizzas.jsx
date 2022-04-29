@@ -8,7 +8,7 @@ const usePizzas = () => {
   const { category } = useSelector(({ filters }) => filters);
 
   useEffect(() => {
-    if (category) {
+    if (category && sortedPizzas) {
       setPizzas(sortedPizzas.filter((pizza) => pizza.category === category));
     } else {
       setPizzas(sortedPizzas);
