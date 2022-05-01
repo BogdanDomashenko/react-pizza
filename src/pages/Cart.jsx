@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CartItem, ClearCart } from "../components";
+import { Link } from "react-router-dom";
+import { CartItem, CheckoutModal, ClearCart } from "../components";
 import { Button, CartIcon, GoBackIcon } from "../components/ui";
 import {
   cartItemCountDec,
@@ -12,6 +13,7 @@ import {
 function Cart() {
   const dispatch = useDispatch();
   const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
+  const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
 
   const itemsValues = Object.values(items);
 
@@ -31,8 +33,20 @@ function Cart() {
     dispatch(cartItemCountDec(id));
   };
 
+  const onBuyButtonClick = () => {
+    setCheckoutModalVisible(true);
+  };
+
+  const onCheckoutModalClose = () => {
+    setCheckoutModalVisible(false);
+  };
+
   return (
     <div className="wrapper">
+      <CheckoutModal
+        visible={checkoutModalVisible}
+        onClose={onCheckoutModalClose}
+      />
       <div className="content">
         <div className="container container--cart">
           <div className="cart">
@@ -78,15 +92,18 @@ function Cart() {
                     </span>
                   </div>
                   <div className="cart__bottom-buttons">
-                    <Button
-                      href="/"
-                      className="button--outline button--add go-back-btn"
-                    >
-                      <GoBackIcon />
-                      <span>Вернуться назад</span>
-                    </Button>
-                    <Button className="pay-btn">
-                      <span>Оплатить сейчас</span>
+                    <Link to="/">
+                      {" "}
+                      <Button
+                        href="/"
+                        className="button--outline button--add go-back-btn"
+                      >
+                        <GoBackIcon />
+                        <span>Вернуться назад</span>
+                      </Button>
+                    </Link>
+                    <Button className="pay-btn" onClick={onBuyButtonClick}>
+                      <span>Заказать</span>
                     </Button>
                   </div>
                 </div>
