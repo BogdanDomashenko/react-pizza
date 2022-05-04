@@ -53,7 +53,7 @@ function Cart() {
             <div className="cart__top">
               <h2 className="content__title">
                 <CartIcon />
-                Корзина
+                Cart
               </h2>
               {itemsValues.length ? (
                 <ClearCart onClick={onClearCartClick} />
@@ -84,11 +84,11 @@ function Cart() {
                   <div className="cart__bottom-details">
                     <span>
                       {" "}
-                      Всего пицц: <b>{totalCount} шт.</b>{" "}
+                      Total count: <b>{totalCount} pieces</b>{" "}
                     </span>
                     <span>
                       {" "}
-                      Сумма заказа: <b>{totalPrice} ₽</b>{" "}
+                      Total price: <b>{totalPrice} $</b>{" "}
                     </span>
                   </div>
                   <div className="cart__bottom-buttons">
@@ -99,16 +99,16 @@ function Cart() {
                         className="button--outline button--add go-back-btn"
                       >
                         <GoBackIcon />
-                        <span>Вернуться назад</span>
+                        <span>Go back</span>
                       </Button>
                     </Link>
                     <Button className="pay-btn" onClick={onBuyButtonClick}>
-                      <span>Заказать</span>
+                      <span>Checkout</span>
                     </Button>
                   </div>
                 </div>
               ) : (
-                <h3>Корзина пуста</h3>
+                <h3>Cart is empty</h3>
               )}
             </div>
           </div>
@@ -119,5 +119,3 @@ function Cart() {
 }
 
 export default Cart;
-
-<h1>Корзина</h1>;

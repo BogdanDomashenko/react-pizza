@@ -12,21 +12,16 @@ const СheckoutModal = ({ visible, onClose }) => {
   return (
     <Modal
       className="checkout-modal"
-      title="Оформление заказа"
+      title="Checkout"
       onClose={onCloseModal}
       visible={visible}
     >
       <ModalBody className="checkout-modal__body">
-        <Input
-          className=""
-          type="tel"
-          placeholder="Номер телефона"
-          {...phone}
-        />
+        <Input className="" type="tel" placeholder="Phone number" {...phone} />
       </ModalBody>
       <ModalBottom className="checkout-modal__bottom">
         <Button className="button--orange">
-          <span>Заказать</span>
+          <span>Checkout</span>
         </Button>
       </ModalBottom>
     </Modal>

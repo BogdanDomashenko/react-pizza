@@ -1,8 +1,11 @@
 import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedField } from "../../redux/actions/pizzas";
 
 function PizzaBlock({
+  id,
   cartCount,
   imageUrl,
   name,
@@ -13,17 +16,17 @@ function PizzaBlock({
   rating,
   onAddToCart,
 }) {
-  const [activeSize, setActiveSize] = React.useState(0);
-  const [activeType, setActiveType] = React.useState(types[0]);
+  const dispatch = useDispatch();
+  const { size: activeSize, type: activeType } = useSelector(
+    (state) => state.pizzas.selectedFields[id]
+  );
 
-  const typeNames = ["тонкое", "традиционное"];
-
-  const onSelectSize = (index) => {
-    setActiveSize(index);
+  const onSelectSize = (size) => {
+    dispatch(setSelectedField(id, { type: activeType, size }));
   };
 
-  const onSelectType = (index) => {
-    setActiveType(index);
+  const onSelectType = (type) => {
+    dispatch(setSelectedField(id, { type, activeSize }));
   };
 
   return (
@@ -32,33 +35,33 @@ function PizzaBlock({
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {typeNames.map((type, index) => (
+          {types.map((type) => (
             <li
               key={type}
               className={classNames({
-                active: index === activeType,
-                disabled: !types.includes(index),
+                active: type === activeType,
+                disabled: !types.includes(type),
               })}
-              onClick={() => onSelectType(index)}
+              onClick={() => onSelectType(type)}
             >
               {type}
             </li>
           ))}
         </ul>
         <ul>
-          {sizes.map((size, index) => (
+          {sizes.map((size) => (
             <li
               key={size}
-              className={index === activeSize ? "active" : ""}
-              onClick={() => onSelectSize(index)}
+              className={size === activeSize ? "active" : ""}
+              onClick={() => onSelectSize(size)}
             >
-              {size} см.
+              {size} inch
             </li>
           ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price}</div>
+        <div className="pizza-block__price">from {price}$</div>
         <div
           className="button button--outline button--add"
           onClick={onAddToCart}
@@ -75,7 +78,7 @@ function PizzaBlock({
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
+          <span>Add</span>
           <i>{cartCount}</i>
         </div>
       </div>
@@ -86,8 +89,8 @@ function PizzaBlock({
 PizzaBlock.propTypes = {
   name: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(PropTypes.number).isRequired,
-  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  types: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sizes: PropTypes.arrayOf(PropTypes.string).isRequired,
   price: PropTypes.number.isRequired,
   category: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,

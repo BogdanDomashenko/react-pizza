@@ -7,12 +7,29 @@ export const setLoaded = (payload) => ({
 
 export const fetchPizzas = () => (dispatch) => {
   dispatch(setLoaded(false));
-  axios.get("http://localhost:3001/pizzas/list").then((response) => {
+  axios.get("http://localhost:3001/stock/aviablePizzas").then((response) => {
+    const fields = {};
+
+    response.data.forEach((item) => {
+      fields[item.id] = { size: item.sizes[0], type: item.types[0] };
+    });
+
     dispatch(setPizzas(response.data));
+    dispatch(setSelectedFields(fields));
   });
 };
 
 export const setPizzas = (items) => ({
   type: "SET_PIZZAS",
   payload: items,
+});
+
+export const setSelectedFields = (fields) => ({
+  type: "SET_SELECTED_FIELDS",
+  payload: fields,
+});
+
+export const setSelectedField = (id, field) => ({
+  type: "SET_SELECTED_FIELD",
+  payload: { id, field },
 });

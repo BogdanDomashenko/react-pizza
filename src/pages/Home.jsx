@@ -12,13 +12,7 @@ import { setSortBy } from "../redux/actions/filters";
 import { useCategory, usePizzas } from "../hooks";
 import { addCartItem } from "../redux/actions/cart";
 
-const categoryNames = [
-  "Мясные",
-  "Вегетарианская",
-  "Гриль",
-  "Острые",
-  "Закрытые",
-];
+const categoryNames = ["Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
 function Home() {
   const dispatch = useDispatch();
@@ -57,15 +51,15 @@ function Home() {
         />
         <SortPopup
           items={[
-            { name: "популярности", type: "popular" },
-            { name: "цена", type: "price" },
-            { name: "алфавит", type: "alphabet" },
+            { name: "popular", type: "popular" },
+            { name: "price", type: "price" },
+            { name: "alphabet", type: "alphabet" },
           ]}
           activeSortType={sortBy}
           onClickSortType={onSelectSortType}
         />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All pizzas</h2>
       <div className="content__items">
         {isLoaded && pizzas
           ? pizzas.map((item, index) => (

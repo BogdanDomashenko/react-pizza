@@ -40,7 +40,7 @@ const ClearCart = ({ onClick }) => {
         />
       </svg>
 
-      <span>Очистить корзину</span>
+      <span>Clear cart</span>
     </div>
   );
 };
