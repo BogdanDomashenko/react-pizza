@@ -1,4 +1,6 @@
 import axios from "axios";
+import { checkoutOrder } from "../../services/order.service";
+import { resetCart } from "./cart";
 
 export const setLoaded = (payload) => ({
   type: "SET_LOADED",

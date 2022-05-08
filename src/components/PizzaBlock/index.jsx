@@ -26,7 +26,7 @@ function PizzaBlock({
   };
 
   const onSelectType = (type) => {
-    dispatch(setSelectedField(id, { type, activeSize }));
+    dispatch(setSelectedField(id, { type, size: activeSize }));
   };
 
   return (

@@ -11,6 +11,7 @@ import { fetchPizzas } from "../redux/actions/pizzas";
 import { setSortBy } from "../redux/actions/filters";
 import { useCategory, usePizzas } from "../hooks";
 import { addCartItem } from "../redux/actions/cart";
+import { testFetch } from "../services/order.service";
 
 const categoryNames = ["Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
@@ -20,6 +21,7 @@ function Home() {
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const { sortBy } = useSelector(({ filters }) => filters);
   const { items: cartItems } = useSelector((state) => state.cart);
+  const { selectedFields } = useSelector((state) => state.pizzas);
 
   const [category, setCategory] = useCategory();
 
@@ -38,7 +40,7 @@ function Home() {
   });
 
   const onAddItemToCart = useCallback((item) => {
-    dispatch(addCartItem(item));
+    dispatch(addCartItem({ ...item, selectedProps: selectedFields[item.id] }));
   });
 
   return (

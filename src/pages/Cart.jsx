@@ -6,15 +6,16 @@ import { Button, CartIcon, GoBackIcon } from "../components/ui";
 import {
   cartItemCountDec,
   cartItemCountInc,
+  checkoutCart,
   removeCartItem,
   resetCart,
 } from "../redux/actions/cart";
+import { fetchOrder } from "../services/order.service";
 
 function Cart() {
   const dispatch = useDispatch();
   const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
   const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
-
   const itemsValues = Object.values(items);
 
   const onClearCartClick = () => {
@@ -37,15 +38,11 @@ function Cart() {
     setCheckoutModalVisible(true);
   };
 
-  const onCheckoutModalClose = () => {
-    setCheckoutModalVisible(false);
-  };
-
   return (
     <div className="wrapper">
       <CheckoutModal
         visible={checkoutModalVisible}
-        onClose={onCheckoutModalClose}
+        setVisible={setCheckoutModalVisible}
       />
       <div className="content">
         <div className="container container--cart">
@@ -73,6 +70,7 @@ function Cart() {
                       onIncCount={() => onIncCartItemCount(item.id)}
                       onDecCount={() => onDecCartItemCount(item.id)}
                       key={item.id}
+                      selectedProps={item.selectedProps}
                     />
                   ))
                 : ""}

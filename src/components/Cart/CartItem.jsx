@@ -9,6 +9,7 @@ const CartItem = ({
   onRemove,
   onIncCount,
   onDecCount,
+  selectedProps,
 }) => {
   return (
     <div className="cart__item">
@@ -17,7 +18,9 @@ const CartItem = ({
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
-        <p>тонкое тесто, 26 см.</p>
+        <p>
+          {selectedProps.type}, {selectedProps.size} inch
+        </p>
       </div>
       <div className="cart__item-count">
         <Button
