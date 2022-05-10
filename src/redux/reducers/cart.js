@@ -2,23 +2,35 @@ const initialState = {
   items: {},
   totalPrice: 0,
   totalCount: 0,
+  checkoutMessenge: null,
+  orderId: null,
 };
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_CART_ITEM": {
-      const currentId = action.payload.id;
+      const currentId =
+        action.payload.item.id +
+        "_" +
+        action.payload.selectedProps.type +
+        "_" +
+        action.payload.selectedProps.size;
       const currentPizzaItem = !state.items[currentId]
-        ? { item: action.payload, count: 1, totalPrice: action.payload.price }
+        ? {
+            item: action.payload.item,
+            selectedProps: action.payload.selectedProps,
+            count: 1,
+            totalPrice: action.payload.item.price,
+          }
         : {
             ...state.items[currentId],
             count: state.items[currentId].count + 1,
             totalPrice:
-              action.payload.price * (state.items[currentId].count + 1),
+              action.payload.item.price * (state.items[currentId].count + 1),
           };
       const newItems = {
         ...state.items,
-        [action.payload.id]: currentPizzaItem,
+        [currentId]: currentPizzaItem,
       };
 
       return {
@@ -84,9 +96,20 @@ const cart = (state = initialState, action) => {
         totalPrice: state.totalPrice - currentPizzaItem.item.price,
       };
     }
+    case "SET_CHECKOUT_CART_MESSENGE": {
+      return {
+        ...state,
+        checkoutMessenge: action.payload,
+      };
+    }
+    case "SET_ORDER_ID": {
+      return {
+        ...state,
+        orderId: action.payload,
+      };
+    }
     default:
       return state;
-      break;
   }
 };
 

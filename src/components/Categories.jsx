@@ -1,4 +1,6 @@
-import React from "react";
+import classNames from "classnames";
+import React, { useState } from "react";
+import { Button } from "./ui";
 //import PropTypes from "prop-types";
 
 const Categories = React.memo(function Categories({
@@ -6,10 +8,24 @@ const Categories = React.memo(function Categories({
   items,
   onClickCategory,
 }) {
-  // const [activeItem, setActiveItem] = React.useState(null);
+  const [isCategoriesOppened, setIsCategoriesOppened] = useState(false);
+
+  const openCategoriesClick = () => {
+    setIsCategoriesOppened(!isCategoriesOppened);
+  };
 
   return (
-    <div className="categories">
+    <div
+      className={classNames("categories", {
+        "categories--oppened": isCategoriesOppened,
+      })}
+    >
+      <Button
+        className="categories__button button--orange"
+        onClick={openCategoriesClick}
+      >
+        <span>Categories</span>
+      </Button>
       <ul>
         <li
           className={activeCategory === null ? "active" : ""}

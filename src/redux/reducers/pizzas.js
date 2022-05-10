@@ -33,7 +33,6 @@ const pizzas = (state = initialState, action) => {
       return {
         ...state,
       };
-      break;
   }
 };
 

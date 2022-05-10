@@ -79,7 +79,7 @@ function PizzaBlock({
             />
           </svg>
           <span>Add</span>
-          <i>{cartCount}</i>
+          {/*           <i>{cartCount}</i> */}
         </div>
       </div>
     </div>

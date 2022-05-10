@@ -34,19 +34,40 @@ export const cartItemCountDec = (id) => {
   };
 };
 
+export const setCheckoutCartMessenge = (error) => {
+  return {
+    type: "SET_CHECKOUT_CART_MESSENGE",
+    payload: error,
+  };
+};
+
+export const setOrderId = (id) => {
+  return {
+    type: "SET_ORDER_ID",
+    payload: id,
+  };
+};
+
 export const checkoutCart = (number) => async (dispatch, getState) => {
   const state = getState();
   const items = Object.values(state.cart.items);
-  const orderList = items.map(({ item, count }) => ({
+  const orderList = items.map(({ item, selectedProps, count }) => ({
     pizzaID: item.id,
     count,
-    props: `${item.selectedProps.type} ${item.selectedProps.id}`,
+    props: `${selectedProps.type} ${selectedProps.size} inch`,
   }));
 
   try {
-    await checkoutOrder(number, orderList);
+    const data = await checkoutOrder(number, orderList);
     dispatch(resetCart());
+    dispatch(
+      setCheckoutCartMessenge(
+        "Your order has been received. Please wait for a call from the operator"
+      )
+    );
+    dispatch(setOrderId(data.id));
   } catch (error) {
     dispatch(resetCart());
+    dispatch(setCheckoutCartMessenge(error.response.data.message));
   }
 };

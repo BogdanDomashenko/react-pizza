@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { CartItem, CheckoutModal, ClearCart } from "../components";
+import { MODALS } from "../utils/constants";
+import { CartItem, ClearCart } from "../components";
 import { Button, CartIcon, GoBackIcon } from "../components/ui";
 import {
   cartItemCountDec,
   cartItemCountInc,
-  checkoutCart,
   removeCartItem,
   resetCart,
 } from "../redux/actions/cart";
-import { fetchOrder } from "../services/order.service";
+import { toggleModalVisibility } from "../redux/actions/modals";
 
 function Cart() {
   const dispatch = useDispatch();
   const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
-  const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
   const itemsValues = Object.values(items);
 
   const onClearCartClick = () => {
@@ -35,17 +34,13 @@ function Cart() {
   };
 
   const onBuyButtonClick = () => {
-    setCheckoutModalVisible(true);
+    dispatch(toggleModalVisibility(MODALS.СheckoutModal));
   };
 
   return (
     <div className="wrapper">
-      <CheckoutModal
-        visible={checkoutModalVisible}
-        setVisible={setCheckoutModalVisible}
-      />
       <div className="content">
-        <div className="container container--cart">
+        <div className="container container--medium">
           <div className="cart">
             <div className="cart__top">
               <h2 className="content__title">
@@ -60,19 +55,24 @@ function Cart() {
             </div>
             <div className="content__items">
               {itemsValues.length
-                ? itemsValues.map(({ item, count, totalPrice }) => (
-                    <CartItem
-                      title={item.name}
-                      price={totalPrice}
-                      count={count}
-                      img={item.imageUrl}
-                      onRemove={() => onRemoveCartItem(item.id)}
-                      onIncCount={() => onIncCartItemCount(item.id)}
-                      onDecCount={() => onDecCartItemCount(item.id)}
-                      key={item.id}
-                      selectedProps={item.selectedProps}
-                    />
-                  ))
+                ? itemsValues.map(
+                    ({ item, selectedProps, count, totalPrice }) => {
+                      const id = `${item.id}_${selectedProps.type}_${selectedProps.size}`;
+                      return (
+                        <CartItem
+                          title={item.name}
+                          price={totalPrice}
+                          count={count}
+                          img={item.imageUrl}
+                          onRemove={() => onRemoveCartItem(id)}
+                          onIncCount={() => onIncCartItemCount(id)}
+                          onDecCount={() => onDecCartItemCount(id)}
+                          key={id}
+                          selectedProps={selectedProps}
+                        />
+                      );
+                    }
+                  )
                 : ""}
             </div>
             <div className="cart__bottom">

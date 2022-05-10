@@ -13,17 +13,14 @@ const useSortedPizzas = () => {
           switch (sortBy) {
             case "popular":
               return b.rating - a.rating;
-              break;
             case "price":
               return a.price - b.price;
-              break;
             case "alphabet":
               if (a.name < b.name) return -1;
               if (a.name > b.name) return 1;
               return 0;
             default:
               return 0;
-              break;
           }
         })
       );
