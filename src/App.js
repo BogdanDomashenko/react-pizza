@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { Home, Cart, PageNotFound, Order } from "./pages";
+import { Home, Cart, PageNotFound, Order, Admin } from "./pages";
 import { Header, Modals } from "./components";
 
 import "./index.css";
@@ -17,6 +17,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cart" element={<Cart />} />
           <Route exact path="/order/:id" element={<Order />} />
+          <Route exact path="/admin" element={<Admin />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

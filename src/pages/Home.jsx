@@ -14,7 +14,7 @@ import { addCartItem } from "../redux/actions/cart";
 
 const categoryNames = ["Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
-function Home() {
+const Home = () => {
   const dispatch = useDispatch();
 
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
@@ -77,6 +77,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

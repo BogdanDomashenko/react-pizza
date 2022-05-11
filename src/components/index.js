@@ -7,4 +7,6 @@ export { default as ClearCart } from "./Cart/ClearCart";
 export { default as CartItem } from "./Cart/CartItem";
 export { default as OrderItem } from "./OrderItem";
 
+export { default as LoginForm } from "./Forms/LoginForm";
+
 export { default as Modals } from "./Modals/Modals";

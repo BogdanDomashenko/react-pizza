@@ -12,7 +12,7 @@ import {
 } from "../redux/actions/cart";
 import { toggleModalVisibility } from "../redux/actions/modals";
 
-function Cart() {
+const Cart = () => {
   const dispatch = useDispatch();
   const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
   const itemsValues = Object.values(items);
@@ -114,6 +114,6 @@ function Cart() {
       </div>
     </div>
   );
-}
+};
 
 export default Cart;
