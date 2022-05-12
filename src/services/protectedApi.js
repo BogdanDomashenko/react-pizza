@@ -1,15 +1,20 @@
 import axios from "axios";
-import config from "../config";
-import LocalStorageService from "./LocalStorageService";
+import {
+  getAccessToken,
+  removeAccessToken,
+  setAccessToken,
+} from "./localStorage.service";
+
+const api = "http://localhost:3001/";
 
 const protectedApi = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: api,
   withCredentials: true,
 });
 
 protectedApi.interceptors.request.use(
   (config) => {
-    const accessToken = LocalStorageService.getAccessToken();
+    const accessToken = getAccessToken();
     if (accessToken) {
       config.headers["Authorization"] = accessToken;
     }
@@ -27,23 +32,22 @@ protectedApi.interceptors.response.use(
 
     if (
       error.response.status === 401 &&
-      originalRequest.url === `${config.api}/token/refresh`
+      originalRequest.url === `token/refresh`
     ) {
-      LocalStorageService.removeAccessToken();
+      removeAccessToken();
       return Promise.reject(error);
     }
-
     if (
       (error.response.status === 400 || error.response.status === 411) &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      return api.get(`${config.api}/token/refresh`).then((res) => {
+      return protectedApi.get(`token/refresh`).then((res) => {
         if (res.status === 201) {
-          LocalStorageService.setAccessToken(res.headers.authorization);
-          api.defaults.headers.common["Authorization"] =
-            LocalStorageService.getAccessToken();
-          return api(originalRequest);
+          setAccessToken(res.headers.authorization);
+          protectedApi.defaults.headers.common["Authorization"] =
+            getAccessToken();
+          return protectedApi(originalRequest);
         }
       });
     }

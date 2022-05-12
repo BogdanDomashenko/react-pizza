@@ -1,5 +1,6 @@
 import api from "../../services/api";
-import { signInQuery } from "../../services/auth.service";
+import { logoutQuery, signInQuery } from "../../services/auth.service";
+import { resetAdmin } from "./admin";
 
 export const setUserData = (data) => {
   return {
@@ -22,6 +23,12 @@ export const setUserRole = (role) => {
   };
 };
 
+export const resetUser = () => {
+  return {
+    type: "RESET_USER",
+  };
+};
+
 export const signIn = (number, password) => async (dispatch) => {
   try {
     const { id, phoneNumber, role } = await signInQuery(number, password);
@@ -30,4 +37,12 @@ export const signIn = (number, password) => async (dispatch) => {
   } catch (error) {
     dispatch(setAuthError(error.response.data.message));
   }
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    await logoutQuery();
+    dispatch(resetAdmin());
+    dispatch(resetUser());
+  } catch (error) {}
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { LoginForm } from "../components";
+import { AdminDashboard, LoginForm } from "../components";
 import { ROLES } from "../utils/constants";
 
 const Admin = () => {
@@ -17,9 +17,9 @@ const Admin = () => {
 
   return (
     <div className="wrapper">
-      <div className="content">
+      <div>
         <div className="container">
-          {isAllowed ? <div>djddj</div> : <LoginForm />}
+          {isAllowed ? <AdminDashboard /> : <LoginForm />}
         </div>
       </div>
     </div>

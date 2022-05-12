@@ -10,21 +10,26 @@ const Categories = React.memo(function Categories({
 }) {
   const [isCategoriesOppened, setIsCategoriesOppened] = useState(false);
 
-  const openCategoriesClick = () => {
+  const toggleCategories = () => {
     setIsCategoriesOppened(!isCategoriesOppened);
+  };
+
+  const onChangeCategory = (index) => {
+    onClickCategory(index);
+    toggleCategories();
   };
 
   return (
     <div
-      className={classNames("categories", {
-        "categories--oppened": isCategoriesOppened,
+      className={classNames("navbar", {
+        "navbar--oppened": isCategoriesOppened,
       })}
     >
       <Button
-        className="categories__button button--orange"
-        onClick={openCategoriesClick}
+        className="navbar__button button--default button--orange"
+        onClick={toggleCategories}
       >
-        <span>Categories</span>
+        <span>{activeCategory === null ? "All" : items[activeCategory]}</span>
       </Button>
       <ul>
         <li
@@ -37,7 +42,7 @@ const Categories = React.memo(function Categories({
           items.map((item, index) => (
             <li
               className={activeCategory === index ? "active" : ""}
-              onClick={() => onClickCategory(index)}
+              onClick={() => onChangeCategory(index)}
               key={`${item}_${index}`}
             >
               {item}

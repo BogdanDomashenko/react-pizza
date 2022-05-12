@@ -1,13 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../assets/img/pizza-logo.svg";
+import { logout } from "../redux/actions/user";
+import { ROLES } from "../utils/constants";
 import { CartIcon } from "./ui";
 import Button from "./ui/Button";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { role: userRole } = useSelector((state) => state.user);
   const { totalPrice, totalCount } = useSelector((state) => state.cart);
+
+  const onLogoutClick = () => {
+    dispatch(logout());
+  };
+
+  const onAdminClick = () => {
+    navigate("/admin");
+  };
 
   return (
     <div className="header">
@@ -22,14 +36,40 @@ const Header = () => {
           </div>
         </Link>
         <div className="header__cart">
-          <Link to="/cart">
-            <Button className="button--orange">
-              <span>{totalPrice} $</span>
-              <div className="button__delimiter"></div>
-              <CartIcon />
-              <span>{totalCount}</span>
-            </Button>
-          </Link>
+          {userRole === ROLES.admin ? (
+            <div className="header__button">
+              <Button
+                className="header__logout-btn button--default button--light"
+                onClick={onAdminClick}
+              >
+                <span>Admin</span>
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
+          {userRole !== ROLES.phantom ? (
+            <div className="header__button">
+              <Button
+                className="header__logout-btn button--default button--light"
+                onClick={onLogoutClick}
+              >
+                <span>Logout</span>
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="header__button">
+            <Link to="/cart">
+              <Button className="button--default button--orange">
+                <span>{totalPrice} $</span>
+                <div className="button__delimiter"></div>
+                <CartIcon />
+                <span>{totalCount}</span>
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

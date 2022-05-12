@@ -29,30 +29,28 @@ const Order = () => {
 
   return (
     <div className="wrapper">
-      <div className="content">
-        <div className="container container--medium">
-          {!error ? (
-            order ? (
-              <div>
-                <h1>Order #{id}</h1>
-                {order.pizzas.map((pizza, index) => (
-                  <OrderItem
-                    key={index}
-                    title={pizza.name}
-                    count={pizza.pizzaOrders.count}
-                    price={pizza.pizzaOrders.totalPrice}
-                    img={pizza.imageUrl}
-                    props={pizza.pizzaOrders.props}
-                  />
-                ))}
-              </div>
-            ) : (
-              ""
-            )
+      <div className="container container--medium">
+        {!error ? (
+          order ? (
+            <div>
+              <h1>Order #{id}</h1>
+              {order.pizzas.map((pizza, index) => (
+                <OrderItem
+                  key={index}
+                  title={pizza.name}
+                  count={pizza.pizzaOrders.count}
+                  price={pizza.pizzaOrders.totalPrice}
+                  img={pizza.imageUrl}
+                  props={pizza.pizzaOrders.props}
+                />
+              ))}
+            </div>
           ) : (
-            <h2>{error}</h2>
-          )}
-        </div>
+            ""
+          )
+        ) : (
+          <h2>{error}</h2>
+        )}
       </div>
     </div>
   );

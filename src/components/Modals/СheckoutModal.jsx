@@ -38,7 +38,10 @@ const СheckoutModal = ({}) => {
         <PhoneInput country={"us"} value={phone} onChange={setPhone} />
       </ModalBody>
       <ModalBottom className="checkout-modal__bottom">
-        <Button className="button--orange" onClick={onConfirmModal}>
+        <Button
+          className="button--default button--orange"
+          onClick={onConfirmModal}
+        >
           <span>Checkout</span>
         </Button>
       </ModalBottom>

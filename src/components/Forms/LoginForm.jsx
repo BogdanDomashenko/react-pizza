@@ -38,7 +38,7 @@ const LoginForm = () => {
           {...password}
         />
         <Button
-          className="login-form__button button--orange"
+          className="login-form__button button--default button--orange"
           onClick={onSignInClick}
         >
           <span>Sign in</span>

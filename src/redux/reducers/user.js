@@ -24,6 +24,9 @@ const user = (state = initialState, action) => {
         role: action.payload,
       };
     }
+    case "RESET_USER": {
+      return initialState;
+    }
     default:
       return state;
   }
