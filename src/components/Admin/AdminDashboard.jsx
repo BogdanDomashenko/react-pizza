@@ -1,16 +1,23 @@
-import React from "react";
-import Order from "../Order/Order";
+import React, { useState } from "react";
+import Products from "../Products/Products";
 import { SearchInput } from "../SearchInput";
-import Nav from "./Nav";
+import { Navbar } from "../ui";
 import Orders from "./Orders";
 
 const AdminDashboard = () => {
+  const [activeINavbartem, setActiveNavbarItem] = useState("Orders");
+  const items = ["Orders", "Products"];
+
   return (
     <div className="admin-dashboard">
-      <Nav />
+      <Navbar
+        items={items}
+        activeItem={activeINavbartem}
+        onItemClick={setActiveNavbarItem}
+      />
       <div className="admin-dashboard__content">
-        <Orders />
-        {/* <Order title="1893178372" count="1" price="10" date="10.11.2022" /> */}
+        {activeINavbartem === "Orders" && <Orders />}
+        {activeINavbartem === "Products" && <Products />}
       </div>
     </div>
   );

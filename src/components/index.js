@@ -8,6 +8,7 @@ export { default as CartItem } from "./Cart/CartItem";
 export { default as OrderItem } from "./Order/OrderItem";
 export { default as Order } from "./Order/Order";
 export { default as AdminDashboard } from "./Admin/AdminDashboard";
+export { default as Products } from "./Products/Products";
 
 export { default as LoginForm } from "./Forms/LoginForm";
 

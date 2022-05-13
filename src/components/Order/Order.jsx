@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setOrderStatus } from "../../redux/actions/admin";
+import { setOrderStatus, updateOrder } from "../../redux/actions/admin";
 import { ORDER_STATUSES } from "../../utils/constants";
 import { Button, SelectPopup } from "../ui";
 
@@ -20,6 +20,10 @@ const Order = ({ id, user, count, status, date, price }) => {
 
   const onViewClick = () => {
     navigate("/order/" + id);
+  };
+
+  const onUpdateClick = () => {
+    dispatch(updateOrder(id));
   };
 
   return (
@@ -46,7 +50,7 @@ const Order = ({ id, user, count, status, date, price }) => {
         </Button>
       </td>
       <td className="orders-table__button">
-        <Button className="button--default">
+        <Button className="button--default" onClick={onUpdateClick}>
           <span>Update</span>
         </Button>
       </td>

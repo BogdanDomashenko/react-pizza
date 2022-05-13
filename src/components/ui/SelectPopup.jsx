@@ -4,8 +4,6 @@ function SelectPopup({ label, items, activeItem, onSelectItem }) {
   const [visiblePopup, setVisiblePopup] = useState(false);
   const sortRef = useRef();
 
-  //const activeLabel = items.find((item) => item === activeItem);
-
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
   };
@@ -43,7 +41,7 @@ function SelectPopup({ label, items, activeItem, onSelectItem }) {
             fill="#2C2C2C"
           />
         </svg>
-        {label && <b>Sort by:</b>}
+        {label && <b>{label}</b>}
         <span onClick={toggleVisiblePopup}>{activeItem}</span>
       </div>
       {visiblePopup && (

@@ -13,7 +13,6 @@ const admin = (state = initialState, action) => {
       return initialState;
     }
     case "SET_ORDER_STATUS": {
-      console.log(state.orders);
       return {
         ...state,
         orders: state.orders.map((order) =>

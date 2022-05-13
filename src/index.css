@@ -377,7 +377,6 @@ a {
 }
 .sort__popup {
   position: absolute;
-  right: 0;
   margin-top: 15px;
   background: #ffffff;
   -webkit-box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
@@ -907,7 +906,6 @@ body {
 
 .admin-dashboard__content {
   margin-top: 20px;
-  overflow-x: auto;
 }
 
 .admin-dashboard__input {
@@ -918,6 +916,10 @@ body {
 .order {
   display: flex;
   justify-content: space-between;
+}
+
+.orders__content {
+  overflow-x: auto;
 }
 
 .table {
@@ -941,6 +943,10 @@ body {
 
 .orders-table__button .button {
   margin: 0 auto;
+}
+
+.orders__filter {
+  margin-bottom: 20px;
 }
 
 /* medium devices */
