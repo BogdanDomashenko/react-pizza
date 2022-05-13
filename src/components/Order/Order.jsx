@@ -1,37 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setOrderStatus } from "../../redux/actions/admin";
+import { ORDER_STATUSES } from "../../utils/constants";
+import { Button, SelectPopup } from "../ui";
 
-const Order = ({ title, count, price, status, date }) => {
+const statusesList = Object.values(ORDER_STATUSES);
+
+const Order = ({ id, user, count, status, date, price }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [selectedStatus, setSelectedStatus] = useState(status);
+
+  const onSelectStatus = (status) => {
+    setSelectedStatus(status);
+    dispatch(setOrderStatus(id, status));
+  };
+
+  const onViewClick = () => {
+    navigate("/order/" + id);
+  };
+
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>phone</th>
-          <th>count</th>
-          <th>price</th>
-          <th>status</th>
-          <th>date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>a</td>
-          <td>b</td>
-          <td>c</td>
-          <td>b</td>
-          <td>c</td>
-          <td>c</td>
-        </tr>
-        <tr>
-          <td>a</td>
-          <td>b</td>
-          <td>c</td>
-          <td>c</td>
-          <td>c</td>
-          <td>c</td>
-        </tr>
-      </tbody>
-    </table>
+    <tr key={id}>
+      <td>{id}</td>
+      <td>{user.id}</td>
+      <td>{user.phoneNumber}</td>
+      <td>{count}</td>
+      <td>{price}$</td>
+      <td>
+        <SelectPopup
+          items={statusesList}
+          activeItem={selectedStatus}
+          onSelectItem={onSelectStatus}
+        />
+      </td>
+      <td>{date}</td>
+      <td className="orders-table__button">
+        <Button
+          className="button--default button--default"
+          onClick={onViewClick}
+        >
+          <span>View</span>
+        </Button>
+      </td>
+      <td className="orders-table__button">
+        <Button className="button--default">
+          <span>Update</span>
+        </Button>
+      </td>
+    </tr>
   );
 };
 

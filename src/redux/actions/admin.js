@@ -14,6 +14,13 @@ export const resetAdmin = () => {
   };
 };
 
+export const setOrderStatus = (id, status) => {
+  return {
+    type: "SET_ORDER_STATUS",
+    payload: { id, status },
+  };
+};
+
 export const getOrders = () => async (dispatch) => {
   try {
     const orders = await fetchOrdersList();

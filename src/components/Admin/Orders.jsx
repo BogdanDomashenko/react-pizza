@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../redux/actions/admin";
+import { ORDER_STATUSES } from "../../utils/constants";
 import Order from "../Order/Order";
-import { Button } from "../ui";
+import { Button, SelectPopup } from "../ui";
 
 const Orders = () => {
   const dispatch = useDispatch();
 
   const { orders } = useSelector((state) => state.admin);
 
+  const statusesList = Object.values(ORDER_STATUSES);
+
   useEffect(() => {
     dispatch(getOrders());
   }, []);
+
+  const onSelectStatus = () => {};
 
   return (
     <table className="table orders-table">
@@ -24,25 +29,21 @@ const Orders = () => {
           <th>price</th>
           <th>status</th>
           <th>date</th>
+          <th>View</th>
           <th>Update</th>
         </tr>
       </thead>
       <tbody>
         {orders.map((order) => (
-          <tr key={order.id}>
-            <td>{order.id}</td>
-            <td>{order.user.id}</td>
-            <td>{order.user.phoneNumber}</td>
-            <td>{order.pizzas.length}</td>
-            <td>d</td>
-            <td>{order.status}</td>
-            <td>{order.createdAt}</td>
-            <td className="orders-table__button">
-              <Button className="button--default">
-                <span>Update</span>
-              </Button>
-            </td>
-          </tr>
+          <Order
+            key={order.id}
+            id={order.id}
+            user={order.user}
+            count={order.pizzas.length}
+            status={order.status}
+            date={order.createdAt}
+            price={order.totalOrderPrice}
+          />
         ))}
       </tbody>
     </table>

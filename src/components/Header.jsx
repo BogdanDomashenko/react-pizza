@@ -62,7 +62,7 @@ const Header = () => {
           )}
           <div className="header__button">
             <Link to="/cart">
-              <Button className="button--default button--orange">
+              <Button className="button--cart button--orange">
                 <span>{totalPrice} $</span>
                 <div className="button__delimiter"></div>
                 <CartIcon />

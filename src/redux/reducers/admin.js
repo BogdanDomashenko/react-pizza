@@ -12,6 +12,17 @@ const admin = (state = initialState, action) => {
     case "RESET_ADMIN": {
       return initialState;
     }
+    case "SET_ORDER_STATUS": {
+      console.log(state.orders);
+      return {
+        ...state,
+        orders: state.orders.map((order) =>
+          order.id === action.payload.id
+            ? { ...order, status: action.payload.status }
+            : order
+        ),
+      };
+    }
     default:
       return state;
   }
