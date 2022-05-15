@@ -9,3 +9,13 @@ export const updateOrderQuery = async (order) => {
     .post("order/update", { order })
     .then((response) => response.data);
 };
+
+export const fetchAdminPizzas = async () => {
+  return protectedApi.get("pizzas/list").then((response) => response.data);
+};
+
+export const updatePizzaQuery = async (pizza) => {
+  return protectedApi
+    .post("pizza/update", { pizza })
+    .then((response) => response.data);
+};

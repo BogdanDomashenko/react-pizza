@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Products from "../Products/Products";
 import { SearchInput } from "../SearchInput";
 import { Navbar } from "../ui";
 import Orders from "./Orders";
+import Products from "./Products/Products";
 
 const AdminDashboard = () => {
-  const [activeINavbartem, setActiveNavbarItem] = useState("Orders");
+  const [activeINavbartem, setActiveNavbarItem] = useState("Products");
   const items = ["Orders", "Products"];
 
   return (

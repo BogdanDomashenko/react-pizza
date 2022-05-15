@@ -11,7 +11,7 @@ function SortPopup({ items, activeSortType, onClickSortType }) {
   };
 
   const handleOutsideClick = (e) => {
-    if (!e.path.includes(sortRef.current)) {
+    if (sortRef.current && !sortRef.current.contains(e.target)) {
       setVisiblePopup(false);
     }
   };
@@ -40,7 +40,7 @@ function SortPopup({ items, activeSortType, onClickSortType }) {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Sort by:</b>
+        <b>Sort b:</b>
         <span onClick={toggleVisiblePopup}>{activeLabel}</span>
       </div>
       {visiblePopup && (

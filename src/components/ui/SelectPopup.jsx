@@ -9,7 +9,7 @@ function SelectPopup({ label, items, activeItem, onSelectItem }) {
   };
 
   const handleOutsideClick = useCallback((e) => {
-    if (!e.path.includes(sortRef.current)) {
+    if (sortRef.current && !sortRef.current.contains(e.target)) {
       setVisiblePopup(false);
     }
   });

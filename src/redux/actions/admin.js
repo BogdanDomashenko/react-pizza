@@ -1,4 +1,5 @@
 import {
+  fetchAdminPizzas,
   fetchOrdersList,
   updateOrderQuery,
 } from "../../services/admin.service";
@@ -24,6 +25,20 @@ export const setOrderStatus = (id, status) => {
   };
 };
 
+const setAdminPizzas = (pizzas) => {
+  return {
+    type: "SET_ADMIN_PIZZAS",
+    payload: pizzas,
+  };
+};
+
+export const setAdminPizzaItem = (id, item) => {
+  return {
+    type: "SET_ADMIN_PIZZA_ITEM",
+    payload: { id, item },
+  };
+};
+
 export const getOrders = () => async (dispatch) => {
   try {
     const orders = await fetchOrdersList();
@@ -42,6 +57,19 @@ export const updateOrder = (id) => async (dispatch, getState) => {
   const order = state.admin.orders.find((order) => order.id === id);
   try {
     await updateOrderQuery(order);
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status === 401) {
+        dispatch(logout());
+      }
+    }
+  }
+};
+
+export const getAdminPizzas = () => async (dispatch) => {
+  try {
+    const pizzas = await fetchAdminPizzas();
+    dispatch(setAdminPizzas(pizzas));
   } catch (error) {
     if (error.response) {
       if (error.response.status === 401) {

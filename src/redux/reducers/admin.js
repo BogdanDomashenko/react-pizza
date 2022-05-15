@@ -1,5 +1,6 @@
 const initialState = {
   orders: [],
+  pizzas: [],
 };
 
 const admin = (state = initialState, action) => {
@@ -19,6 +20,22 @@ const admin = (state = initialState, action) => {
           order.id === action.payload.id
             ? { ...order, status: action.payload.status }
             : order
+        ),
+      };
+    }
+    case "SET_ADMIN_PIZZAS": {
+      return {
+        ...state,
+        pizzas: action.payload,
+      };
+    }
+    case "SET_ADMIN_PIZZA_ITEM": {
+      return {
+        ...state,
+        pizzas: state.pizzas.map((pizza) =>
+          pizza.id === action.payload.id
+            ? { id: action.payload.id, ...action.payload.item }
+            : pizza
         ),
       };
     }

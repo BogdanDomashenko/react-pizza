@@ -300,6 +300,9 @@ a {
 }
 .button--light {
   background-color: #f3f3f3;
+  color: #232323;
+  font-weight: 700;
+  font-size: 16px;
 }
 .button--light:hover {
   background-color: #edecec;
@@ -918,7 +921,7 @@ body {
   justify-content: space-between;
 }
 
-.orders__content {
+.orders__content .products__content {
   overflow-x: auto;
 }
 
@@ -941,12 +944,16 @@ body {
   padding: 10px 0;
 }
 
-.orders-table__button .button {
+.table__button .button {
   margin: 0 auto;
 }
 
 .orders__filter {
   margin-bottom: 20px;
+}
+
+.product__img {
+  max-height: 100px;
 }
 
 /* medium devices */
