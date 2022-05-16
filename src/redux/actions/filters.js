@@ -1,3 +1,5 @@
+import { fetchCategories } from "../../services/filters.service";
+
 export const setSortBy = (name) => {
   return {
     type: "SET_SORT_BY",
@@ -10,4 +12,17 @@ export const setCategory = (catIndex) => {
     type: "SET_CATEGORY",
     payload: catIndex,
   };
+};
+
+const setCategories = (categories) => {
+  return {
+    type: "SET_CATEGORIES",
+    payload: categories,
+  };
+};
+
+export const getCategories = () => async (dispatch) => {
+  const categories = await fetchCategories();
+
+  dispatch(setCategories(categories));
 };

@@ -19,3 +19,7 @@ export const updatePizzaQuery = async (pizza) => {
     .post("pizza/update", { pizza })
     .then((response) => response.data);
 };
+
+export const fetchAllStockPizzas = async () => {
+  return protectedApi.get("stock/allPizzas").then((response) => response.data);
+};

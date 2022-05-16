@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Categories,
@@ -9,10 +9,8 @@ import {
 import { fetchPizzas } from "../redux/actions/pizzas";
 
 import { setSortBy } from "../redux/actions/filters";
-import { useCategory, usePizzas } from "../hooks";
+import { useCategories, useCategory, usePizzas } from "../hooks";
 import { addCartItem } from "../redux/actions/cart";
-
-const categoryNames = ["Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,9 +20,15 @@ const Home = () => {
   const { items: cartItems } = useSelector((state) => state.cart);
   const { selectedFields } = useSelector((state) => state.pizzas);
 
+  const [categoryNames, setCategoryNames] = useState();
+  const categories = useCategories();
   const [category, setCategory] = useCategory();
 
   const pizzas = usePizzas();
+
+  useEffect(() => {
+    setCategoryNames(categories.map((category) => category.name));
+  }, [categories]);
 
   useEffect(() => {
     dispatch(fetchPizzas());

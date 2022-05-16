@@ -5,6 +5,7 @@ export { default as ModalBottom } from "./Modal/ModalBottom";
 export { default as Input } from "./Input";
 export { default as Navbar } from "./Navbar";
 export { default as SelectPopup } from "./SelectPopup";
+export { default as Checkbox } from "./Checkbox";
 
 //icons
 export { default as CartIcon } from "./icons/CartIcon";

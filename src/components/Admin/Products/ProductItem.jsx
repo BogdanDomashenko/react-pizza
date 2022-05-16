@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import useInput from "../../../hooks/useInput";
-import { setAdminPizzaItem } from "../../../redux/actions/admin";
+import { setAdminPizzaItem, updatePizza } from "../../../redux/actions/admin";
 import { updatePizzaQuery } from "../../../services/admin.service";
 import { Button, Input } from "../../ui";
 
@@ -13,6 +13,7 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
   const imageUrlInp = useInput(imageUrl);
   const priceInp = useInput(price);
   const ratingInp = useInput(rating);
+  const categoryInp = useInput(category);
 
   const toggleIsEditing = () => {
     setIsEditing(!isEditing);
@@ -23,12 +24,11 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
       name: nameInp.value,
       imageUrl: imageUrlInp.value,
       price: priceInp.value,
-      category,
+      category: categoryInp.value,
       rating: ratingInp.value,
     };
 
-    dispatch(setAdminPizzaItem(id, pizza));
-    await updatePizzaQuery({ id, ...pizza });
+    dispatch(updatePizza(id, pizza));
     toggleIsEditing();
   };
 
@@ -60,7 +60,9 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
       <td>
         <Input {...priceInp} />
       </td>
-      <td>{category}</td>
+      <td>
+        <Input {...categoryInp} />
+      </td>
       <td>
         <Input {...ratingInp} />
       </td>

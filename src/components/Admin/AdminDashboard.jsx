@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { SearchInput } from "../SearchInput";
 import { Navbar } from "../ui";
 import Orders from "./Orders";
 import Products from "./Products/Products";
+import Stock from "./Stock/Stock";
 
 const AdminDashboard = () => {
-  const [activeINavbartem, setActiveNavbarItem] = useState("Products");
-  const items = ["Orders", "Products"];
+  const { error } = useSelector((state) => state.admin);
+  const items = ["Orders", "Products", "Stock"];
+  const [activeINavbartem, setActiveNavbarItem] = useState(items[2]);
 
   return (
     <div className="admin-dashboard">
@@ -15,9 +18,16 @@ const AdminDashboard = () => {
         activeItem={activeINavbartem}
         onItemClick={setActiveNavbarItem}
       />
+      {error && (
+        <div className="admin-dashboard__message">
+          <span className="error">{error}</span>
+        </div>
+      )}
+
       <div className="admin-dashboard__content">
-        {activeINavbartem === "Orders" && <Orders />}
-        {activeINavbartem === "Products" && <Products />}
+        {activeINavbartem === items[0] && <Orders />}
+        {activeINavbartem === items[1] && <Products />}
+        {activeINavbartem === items[2] && <Stock />}
       </div>
     </div>
   );

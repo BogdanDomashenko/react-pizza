@@ -956,6 +956,38 @@ body {
   max-height: 100px;
 }
 
+.admin-dashboard__message {
+  margin-top: 20px;
+}
+
+.error {
+  color: rgb(255, 55, 55);
+  font-weight: 700;
+}
+
+.checkbox input {
+  -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+  accent-color: #f24701;
+  border-color: #f24701;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.stock__checkbox span {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
   .navbar ul {

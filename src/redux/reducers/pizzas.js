@@ -1,6 +1,8 @@
 const initialState = {
   items: [],
   selectedFields: {},
+  sizes: [],
+  types: [],
   isLoaded: false,
 };
 
@@ -29,6 +31,18 @@ const pizzas = (state = initialState, action) => {
         ...state,
         selectedFields: newSelectedFields,
       };
+    case "SET_PIZZA_SIZES": {
+      return {
+        ...state,
+        sizes: action.payload,
+      };
+    }
+    case "SET_PIZZA_TYPES": {
+      return {
+        ...state,
+        types: action.payload,
+      };
+    }
     default:
       return {
         ...state,

@@ -1,6 +1,8 @@
 const initialState = {
   orders: [],
   pizzas: [],
+  stockPizzas: [],
+  error: null,
 };
 
 const admin = (state = initialState, action) => {
@@ -35,6 +37,102 @@ const admin = (state = initialState, action) => {
         pizzas: state.pizzas.map((pizza) =>
           pizza.id === action.payload.id
             ? { id: action.payload.id, ...action.payload.item }
+            : pizza
+        ),
+      };
+    }
+    case "SET_ADMIN_ERROR": {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+    case "SET_ADMIN_STOCK_PIZZAS": {
+      return {
+        ...state,
+        stockPizzas: action.payload,
+      };
+    }
+    case "REMOVE_ADMIN_STOCK_PIZZA_SIZE": {
+      return {
+        ...state,
+        stockPizzas: state.stockPizzas.map((pizza) =>
+          action.payload.id === pizza.id
+            ? {
+                ...pizza,
+                sizes: pizza.sizes.filter(
+                  (size) => size !== action.payload.size
+                ),
+              }
+            : pizza
+        ),
+      };
+    }
+    case "REMOVE_ADMIN_STOCK_PIZZA_TYPE": {
+      return {
+        ...state,
+        stockPizzas: state.stockPizzas.map((pizza) =>
+          action.payload.id === pizza.id
+            ? {
+                ...pizza,
+                types: pizza.types.filter(
+                  (type) => type !== action.payload.type
+                ),
+              }
+            : pizza
+        ),
+      };
+    }
+    case "ADD_ADMIN_PIZZA_SIZE": {
+      return {
+        ...state,
+        stockPizzas: state.stockPizzas.map((pizza) =>
+          action.payload.id === pizza.id
+            ? {
+                ...pizza,
+                sizes: [...pizza.sizes, action.payload.size],
+              }
+            : pizza
+        ),
+      };
+    }
+    case "ADD_ADMIN_PIZZA_TYPE": {
+      return {
+        ...state,
+        stockPizzas: state.stockPizzas.map((pizza) =>
+          action.payload.id === pizza.id
+            ? {
+                ...pizza,
+                types: [...pizza.types, action.payload.type],
+              }
+            : pizza
+        ),
+      };
+    }
+    case "SET_ADMIN_PIZZA_TYPES_SIZES": {
+      return {
+        ...state,
+        stockPizzas: state.stockPizzas.map((pizza) =>
+          action.payload.id === pizza.id
+            ? {
+                ...pizza,
+                sizes: action.payload.sizes,
+                types: action.payload.types,
+              }
+            : pizza
+        ),
+      };
+    }
+    case "REMOVE_ADMIN_PIZZA_TYPES_SIZES": {
+      return {
+        ...state,
+        stockPizzas: state.stockPizzas.map((pizza) =>
+          action.payload === pizza.id
+            ? {
+                ...pizza,
+                sizes: [],
+                types: [],
+              }
             : pizza
         ),
       };
