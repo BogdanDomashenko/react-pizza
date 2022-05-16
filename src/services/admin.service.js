@@ -23,3 +23,15 @@ export const updatePizzaQuery = async (pizza) => {
 export const fetchAllStockPizzas = async () => {
   return protectedApi.get("stock/allPizzas").then((response) => response.data);
 };
+
+export const setPizzaAvailableQuery = async (id) => {
+  return protectedApi
+    .get("stock/setPizzaAvailable/" + id)
+    .then((response) => response.data);
+};
+
+export const setPizzaNotAvailableQuery = async (id) => {
+  return protectedApi
+    .get("stock/setPizzaNotAvailable/" + id)
+    .then((response) => response.data);
+};

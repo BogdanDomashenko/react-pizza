@@ -116,8 +116,8 @@ const admin = (state = initialState, action) => {
           action.payload.id === pizza.id
             ? {
                 ...pizza,
-                sizes: action.payload.sizes,
-                types: action.payload.types,
+                sizes: action.payload.sizes.map((size) => size.name),
+                types: action.payload.types.map((type) => type.name),
               }
             : pizza
         ),

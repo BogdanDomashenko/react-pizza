@@ -2,6 +2,8 @@ import {
   fetchAdminPizzas,
   fetchAllStockPizzas,
   fetchOrdersList,
+  setPizzaAvailableQuery,
+  setPizzaNotAvailableQuery,
   updateOrderQuery,
   updatePizzaQuery,
 } from "../../services/admin.service";
@@ -153,6 +155,34 @@ export const getAdminAllStockPizzas = () => async (dispatch) => {
     dispatch(setAdminStockPizzas(pizzas));
   } catch (error) {
     if (error.response) {
+      if (error.response.status === 401) {
+        dispatch(logout());
+      }
+    }
+  }
+};
+
+export const setPizzaAvailable = (id, types, sizes) => async (dispatch) => {
+  try {
+    await setPizzaAvailableQuery(id);
+    dispatch(setAdminPizzaSizesTypes(id, types, sizes));
+  } catch (error) {
+    if (error.response) {
+      dispatch(setTimeoutAdminError(error.response.data.message));
+      if (error.response.status === 401) {
+        dispatch(logout());
+      }
+    }
+  }
+};
+
+export const setPizzaNotAvailable = (id) => async (dispatch) => {
+  try {
+    await setPizzaNotAvailableQuery(id);
+    dispatch(removeAdminPizzaSizesTypes(id));
+  } catch (error) {
+    if (error.response) {
+      dispatch(setTimeoutAdminError(error.response.data.message));
       if (error.response.status === 401) {
         dispatch(logout());
       }

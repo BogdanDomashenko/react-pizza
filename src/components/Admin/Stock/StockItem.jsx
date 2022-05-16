@@ -5,10 +5,10 @@ import { usePizzaSizes } from "../../../hooks/usePizzaSizes";
 import {
   addAdminPizzaSize,
   addAdminPizzaType,
-  removeAdminPizzaSizesTypes,
   removeAdminStockPizzaSize,
   removeAdminStockPizzaType,
-  setAdminPizzaSizesTypes,
+  setPizzaAvailable,
+  setPizzaNotAvailable,
 } from "../../../redux/actions/admin";
 import { Checkbox } from "../../ui";
 
@@ -22,15 +22,17 @@ const StockItem = ({
 }) => {
   const dispatch = useDispatch();
 
-  const availableInp = useCheckbox(true);
+  const availableInp = useCheckbox(
+    availableSizes.length === sizes.length &&
+      availableTypes.length === types.length
+  );
 
   const toggleAvailable = (e) => {
     availableInp.toggleChecked();
-    console.log(e.target.checked);
-    if (!e.target.checked) {
-      dispatch(removeAdminPizzaSizesTypes(id));
+    if (e.target.checked) {
+      dispatch(setPizzaAvailable(id, types, sizes));
     } else {
-      dispatch(setAdminPizzaSizesTypes(id, types, sizes));
+      dispatch(setPizzaNotAvailable(id));
     }
   };
 
