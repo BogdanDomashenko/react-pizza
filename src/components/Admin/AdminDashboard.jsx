@@ -9,7 +9,7 @@ import Stock from "./Stock/Stock";
 const AdminDashboard = () => {
   const { error } = useSelector((state) => state.admin);
   const items = ["Orders", "Products", "Stock"];
-  const [activeINavbartem, setActiveNavbarItem] = useState(items[2]);
+  const [activeINavbartem, setActiveNavbarItem] = useState(items[0]);
 
   return (
     <div className="admin-dashboard">
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      <div className="admin-dashboard__content">
+      <div className="admin-dashboard__content overflow-x-auto">
         {activeINavbartem === items[0] && <Orders />}
         {activeINavbartem === items[1] && <Products />}
         {activeINavbartem === items[2] && <Stock />}

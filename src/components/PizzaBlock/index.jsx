@@ -17,6 +17,7 @@ function PizzaBlock({
   onAddToCart,
 }) {
   const dispatch = useDispatch();
+
   const { size: activeSize, type: activeType } = useSelector(
     (state) => state.pizzas.selectedFields[id]
   );

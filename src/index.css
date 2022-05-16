@@ -921,10 +921,6 @@ body {
   justify-content: space-between;
 }
 
-.orders__content .products__content {
-  overflow-x: auto;
-}
-
 .table {
   width: 100%;
   text-align: center;
@@ -986,6 +982,17 @@ body {
 .stock__checkbox span {
   margin-left: 10px;
   margin-bottom: 10px;
+}
+
+.product__add {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.product__add .input,
+.product__add .button {
+  margin-left: 10px;
 }
 
 /* medium devices */

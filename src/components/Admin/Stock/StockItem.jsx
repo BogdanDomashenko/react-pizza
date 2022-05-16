@@ -9,6 +9,8 @@ import {
   removeAdminStockPizzaType,
   setPizzaAvailable,
   setPizzaNotAvailable,
+  setPizzaSizeAvailable,
+  setPizzaTypeAvailable,
 } from "../../../redux/actions/admin";
 import { Checkbox } from "../../ui";
 
@@ -22,10 +24,18 @@ const StockItem = ({
 }) => {
   const dispatch = useDispatch();
 
-  const availableInp = useCheckbox(
+  const isAllChecked =
     availableSizes.length === sizes.length &&
-      availableTypes.length === types.length
-  );
+    availableTypes.length === types.length;
+  const availableInp = useCheckbox(isAllChecked);
+
+  useEffect(() => {
+    if (isAllChecked) {
+      !availableInp.checked && availableInp.toggleChecked();
+    } else {
+      availableInp.checked && availableInp.toggleChecked();
+    }
+  }, [availableSizes, availableTypes]);
 
   const toggleAvailable = (e) => {
     availableInp.toggleChecked();
@@ -36,19 +46,11 @@ const StockItem = ({
     }
   };
 
-  const onSizesChange = (name, includes) => {
-    if (includes) {
-      dispatch(removeAdminStockPizzaSize(id, name));
-    } else {
-      dispatch(addAdminPizzaSize(id, name));
-    }
+  const onSizesChange = (sizeID, name, includes) => {
+    dispatch(setPizzaSizeAvailable(id, name, sizeID, includes));
   };
-  const onTypesChange = (name, includes) => {
-    if (includes) {
-      dispatch(removeAdminStockPizzaType(id, name));
-    } else {
-      dispatch(addAdminPizzaType(id, name));
-    }
+  const onTypesChange = (typeID, name, includes) => {
+    dispatch(setPizzaTypeAvailable(id, name, typeID, includes));
   };
 
   return (
@@ -65,7 +67,7 @@ const StockItem = ({
             <div className="stock__checkbox flex flex-center" key={size.id}>
               <Checkbox
                 checked={includes}
-                onChange={() => onSizesChange(size.name, includes)}
+                onChange={() => onSizesChange(size.id, size.name, includes)}
               />
               <span>{size.name}</span>
             </div>
@@ -80,7 +82,7 @@ const StockItem = ({
               <Checkbox
                 key={type.id}
                 checked={includes}
-                onChange={() => onTypesChange(type.name, includes)}
+                onChange={() => onTypesChange(type.id, type.name, includes)}
               />
               <span>{type.name}</span>
             </div>

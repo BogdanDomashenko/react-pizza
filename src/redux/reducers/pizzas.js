@@ -43,6 +43,9 @@ const pizzas = (state = initialState, action) => {
         types: action.payload,
       };
     }
+    case "RESET_PIZZAS": {
+      return initialState;
+    }
     default:
       return {
         ...state,

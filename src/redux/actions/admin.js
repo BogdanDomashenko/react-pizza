@@ -4,9 +4,13 @@ import {
   fetchOrdersList,
   setPizzaAvailableQuery,
   setPizzaNotAvailableQuery,
+  setPizzaSizeAvailableQuery,
+  setPizzaTypeAvailableQuery,
   updateOrderQuery,
   updatePizzaQuery,
 } from "../../services/admin.service";
+import { addPizzaQuery, deletePizzaQuery } from "../../services/pizza.service";
+import { fetchPizzas } from "./pizzas";
 import { logout } from "./user";
 
 export const setOrders = (orders) => {
@@ -84,6 +88,16 @@ export const setAdminPizzaSizesTypes = (id, types, sizes) => ({
 
 export const removeAdminPizzaSizesTypes = (id) => ({
   type: "REMOVE_ADMIN_PIZZA_TYPES_SIZES",
+  payload: id,
+});
+
+const addAdminPizza = (pizza) => ({
+  type: "ADD_ADMIN_PIZZA",
+  payload: pizza,
+});
+
+const deleteAdminPizza = (id) => ({
+  type: "DELETE_ADMIN_PIZZA",
   payload: id,
 });
 
@@ -180,6 +194,71 @@ export const setPizzaNotAvailable = (id) => async (dispatch) => {
   try {
     await setPizzaNotAvailableQuery(id);
     dispatch(removeAdminPizzaSizesTypes(id));
+  } catch (error) {
+    if (error.response) {
+      dispatch(setTimeoutAdminError(error.response.data.message));
+      if (error.response.status === 401) {
+        dispatch(logout());
+      }
+    }
+  }
+};
+
+export const setPizzaSizeAvailable =
+  (id, name, sizeID, available) => async (dispatch) => {
+    try {
+      await setPizzaSizeAvailableQuery(id, sizeID, !available);
+      if (available) {
+        dispatch(removeAdminStockPizzaSize(id, name));
+      } else {
+        dispatch(addAdminPizzaSize(id, name));
+      }
+    } catch (error) {
+      if (error.response) {
+        dispatch(setTimeoutAdminError(error.response.data.message));
+        if (error.response.status === 401) {
+          dispatch(logout());
+        }
+      }
+    }
+  };
+
+export const setPizzaTypeAvailable =
+  (id, name, typeID, available) => async (dispatch) => {
+    try {
+      await setPizzaTypeAvailableQuery(id, typeID, !available);
+      if (available) {
+        dispatch(removeAdminStockPizzaType(id, name));
+      } else {
+        dispatch(addAdminPizzaType(id, name));
+      }
+    } catch (error) {
+      if (error.response) {
+        dispatch(setTimeoutAdminError(error.response.data.message));
+        if (error.response.status === 401) {
+          dispatch(logout());
+        }
+      }
+    }
+  };
+export const addPizza = (pizza) => async (dispatch) => {
+  try {
+    await addPizzaQuery(pizza);
+    dispatch(addAdminPizza(pizza));
+  } catch (error) {
+    if (error.response) {
+      dispatch(setTimeoutAdminError(error.response.data.message));
+      if (error.response.status === 401) {
+        dispatch(logout());
+      }
+    }
+  }
+};
+
+export const deletePizza = (id) => async (dispatch) => {
+  try {
+    await deletePizzaQuery(id);
+    dispatch(deleteAdminPizza(id));
   } catch (error) {
     if (error.response) {
       dispatch(setTimeoutAdminError(error.response.data.message));

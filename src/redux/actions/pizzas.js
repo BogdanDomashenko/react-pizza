@@ -31,6 +31,10 @@ const setPizzaTypes = (types) => ({
   payload: types,
 });
 
+export const resetPizzas = () => ({
+  type: "RESET_PIZZAS",
+});
+
 export const fetchPizzas = () => (dispatch) => {
   dispatch(setLoaded(false));
   axios.get("http://localhost:3001/stock/aviablePizzas").then((response) => {

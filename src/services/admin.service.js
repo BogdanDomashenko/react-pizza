@@ -35,3 +35,15 @@ export const setPizzaNotAvailableQuery = async (id) => {
     .get("stock/setPizzaNotAvailable/" + id)
     .then((response) => response.data);
 };
+
+export const setPizzaTypeAvailableQuery = async (id, typeID, available) => {
+  return protectedApi
+    .post("stock/setPizzaTypeAvailable", { id, typeID, available })
+    .then((response) => response.data);
+};
+
+export const setPizzaSizeAvailableQuery = async (id, sizeID, available) => {
+  return protectedApi
+    .post("stock/setPizzaSizeAvailable", { id, sizeID, available })
+    .then((response) => response.data);
+};

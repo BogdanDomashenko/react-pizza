@@ -16,10 +16,6 @@ const Stock = () => {
     dispatch(getAdminAllStockPizzas());
   }, []);
 
-  useEffect(() => {
-    console.log(pizzaTypes);
-  }, [pizzaTypes]);
-
   return (
     <div className="stock">
       <div className="stock__content">

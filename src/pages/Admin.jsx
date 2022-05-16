@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AdminDashboard, LoginForm } from "../components";
+import { resetPizzas } from "../redux/actions/pizzas";
 import { ROLES } from "../utils/constants";
 
 const Admin = () => {
+  const dispatch = useDispatch();
   const { role: userRole } = useSelector((state) => state.user);
   const [isAllowed, setIsAllowed] = useState(false);
+
+  useEffect(() => {
+    dispatch(resetPizzas());
+  }, []);
 
   useEffect(() => {
     if (userRole === ROLES.admin) {

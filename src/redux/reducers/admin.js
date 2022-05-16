@@ -137,6 +137,21 @@ const admin = (state = initialState, action) => {
         ),
       };
     }
+    case "ADD_ADMIN_PIZZA": {
+      return {
+        ...state,
+        pizzas: [
+          ...state.pizzas,
+          { id: state.pizzas.length + 1, ...action.payload },
+        ],
+      };
+    }
+    case "DELETE_ADMIN_PIZZA": {
+      return {
+        ...state,
+        pizzas: state.pizzas.filter((pizza) => pizza.id !== action.payload),
+      };
+    }
     default:
       return state;
   }

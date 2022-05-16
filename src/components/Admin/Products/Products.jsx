@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminPizzas } from "../../../redux/actions/admin";
+import AddProduct from "./AddProduct";
 import ProductItem from "./ProductItem";
 
 const Products = () => {
@@ -25,6 +26,7 @@ const Products = () => {
               <th>category</th>
               <th>rating</th>
               <th>action</th>
+              <th>delete</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +34,7 @@ const Products = () => {
               pizzas.map((pizza) => <ProductItem key={pizza.id} {...pizza} />)}
           </tbody>
         </table>
+        <AddProduct />
       </div>
     </div>
   );

@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import useInput from "../../../hooks/useInput";
-import { setAdminPizzaItem, updatePizza } from "../../../redux/actions/admin";
+import {
+  deletePizza,
+  setAdminPizzaItem,
+  updatePizza,
+} from "../../../redux/actions/admin";
 import { updatePizzaQuery } from "../../../services/admin.service";
 import { Button, Input } from "../../ui";
 
@@ -9,27 +14,34 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
-  const nameInp = useInput(name);
-  const imageUrlInp = useInput(imageUrl);
-  const priceInp = useInput(price);
-  const ratingInp = useInput(rating);
-  const categoryInp = useInput(category);
+
+  const formik = useFormik({
+    initialValues: {
+      name: name,
+      imageUrl: imageUrl,
+      price: price,
+      category: category,
+      rating: rating,
+    },
+    onSubmit: (values, { resetForm }) => {
+      dispatch(updatePizza(id, values));
+      toggleIsEditing();
+      resetForm();
+    },
+  });
+
+  useEffect(() => {
+    if (!isEditing) {
+      formik.resetForm();
+    }
+  }, [isEditing]);
 
   const toggleIsEditing = () => {
     setIsEditing(!isEditing);
   };
 
-  const onUpdateClick = async () => {
-    const pizza = {
-      name: nameInp.value,
-      imageUrl: imageUrlInp.value,
-      price: priceInp.value,
-      category: categoryInp.value,
-      rating: ratingInp.value,
-    };
-
-    dispatch(updatePizza(id, pizza));
-    toggleIsEditing();
+  const onDeletePizza = () => {
+    dispatch(deletePizza(id));
   };
 
   return !isEditing ? (
@@ -47,24 +59,60 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
           Edit
         </Button>
       </td>
+      <td>
+        <Button
+          className="button--defaul button--light"
+          onClick={onDeletePizza}
+        >
+          Delete
+        </Button>
+      </td>
     </tr>
   ) : (
     <tr className="product">
       <td>{id}</td>
       <td>
-        <Input {...nameInp} />
+        <Input
+          label="Name"
+          name="name"
+          onChange={formik.handleChange}
+          value={formik.values.name}
+        />
       </td>
       <td>
-        <Input {...imageUrlInp} />
+        <Input
+          label="Image url"
+          name="imageUrl"
+          onChange={formik.handleChange}
+          value={formik.values.imageUrl}
+        />
       </td>
       <td>
-        <Input {...priceInp} />
+        <Input
+          label="Price"
+          type="number"
+          name="price"
+          onChange={formik.handleChange}
+          value={formik.values.price}
+        />
       </td>
       <td>
-        <Input {...categoryInp} />
+        <Input
+          label="Category"
+          type="number"
+          name="category"
+          onChange={formik.handleChange}
+          value={formik.values.category}
+        />
       </td>
       <td>
-        <Input {...ratingInp} />
+        <Input
+          label="Rating"
+          type="number"
+          name="rating"
+          onChange={formik.handleChange}
+          value={formik.values.rating}
+        />
       </td>
       <td className="table__button">
         <Button
@@ -73,8 +121,16 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
         >
           Cancel
         </Button>
-        <Button className="button--default" onClick={onUpdateClick}>
+        <Button className="button--default" onClick={formik.handleSubmit}>
           Update
+        </Button>
+      </td>
+      <td>
+        <Button
+          className="button--defaul button--light"
+          onClick={onDeletePizza}
+        >
+          Delete
         </Button>
       </td>
     </tr>
