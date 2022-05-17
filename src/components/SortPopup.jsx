@@ -44,7 +44,7 @@ function SortPopup({ items, activeSortType, onClickSortType }) {
         <span onClick={toggleVisiblePopup}>{activeLabel}</span>
       </div>
       {visiblePopup && (
-        <div className="sort__popup">
+        <div className="sort__popup sort__popup--right">
           <ul>
             {items.map((item, index) => (
               <li
