@@ -378,6 +378,9 @@ a {
   -ms-user-select: none;
   user-select: none;
 }
+.sort__popup--right {
+  right: 0;
+}
 .sort__popup {
   position: absolute;
   margin-top: 15px;
@@ -995,6 +998,10 @@ body {
   margin-left: 10px;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
   .navbar ul {
@@ -1051,6 +1058,17 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .header__button:last-child {
+    margin-top: 10px;
+  }
+  .product__add {
+    flex-wrap: wrap;
+    max-width: 300px;
+  }
+  .product__add input {
+    margin-bottom: 20px;
   }
   .cart__item {
     flex-wrap: wrap;
