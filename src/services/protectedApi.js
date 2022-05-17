@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config";
 import {
   getAccessToken,
   removeAccessToken,
@@ -8,7 +9,7 @@ import {
 const api = "http://localhost:3001/";
 
 const protectedApi = axios.create({
-  baseURL: api,
+  baseURL: API_URL,
   withCredentials: true,
 });
 

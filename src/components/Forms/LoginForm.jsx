@@ -30,6 +30,7 @@ const LoginForm = () => {
           value={phone}
           onChange={setPhone}
           className="login-form__phone"
+          inputStyle={{ width: "100%" }}
         />
         <Input
           label="Password"
