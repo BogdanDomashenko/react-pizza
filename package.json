@@ -69,6 +69,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "json-server": "json-server --watch public/db.json --port 3001"
   },
+  "heroku-run-build-script": true,
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
