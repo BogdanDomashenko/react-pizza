@@ -34,7 +34,7 @@ const Categories = React.memo(function Categories({
       <ul>
         <li
           className={activeCategory === null ? "active" : ""}
-          onClick={() => onClickCategory(null)}
+          onClick={() => onChangeCategory(null)}
         >
           All
         </li>
