@@ -112,13 +112,7 @@ export const getOrders = () => async (dispatch) => {
   try {
     const orders = await fetchOrdersList();
     dispatch(setOrders(orders));
-  } catch (error) {
-    if (error.response) {
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
-    }
-  }
+  } catch (error) {}
 };
 
 export const updateOrder = (id) => async (dispatch, getState) => {
@@ -126,26 +120,14 @@ export const updateOrder = (id) => async (dispatch, getState) => {
   const order = state.admin.orders.find((order) => order.id === id);
   try {
     await updateOrderQuery(order);
-  } catch (error) {
-    if (error.response) {
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
-    }
-  }
+  } catch (error) {}
 };
 
 export const getAdminPizzas = () => async (dispatch) => {
   try {
     const pizzas = await fetchAdminPizzas();
     dispatch(setAdminPizzas(pizzas));
-  } catch (error) {
-    if (error.response) {
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
-    }
-  }
+  } catch (error) {}
 };
 
 export const updatePizza = (id, pizza) => async (dispatch) => {
@@ -156,9 +138,6 @@ export const updatePizza = (id, pizza) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setTimeoutAdminError(error.response.data.message));
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
     }
   }
 };
@@ -169,9 +148,6 @@ export const getAdminAllStockPizzas = () => async (dispatch) => {
     dispatch(setAdminStockPizzas(pizzas));
   } catch (error) {
     if (error.response) {
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
     }
   }
 };
@@ -183,9 +159,6 @@ export const setPizzaAvailable = (id, types, sizes) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setTimeoutAdminError(error.response.data.message));
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
     }
   }
 };
@@ -197,9 +170,6 @@ export const setPizzaNotAvailable = (id) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setTimeoutAdminError(error.response.data.message));
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
     }
   }
 };
@@ -216,9 +186,6 @@ export const setPizzaSizeAvailable =
     } catch (error) {
       if (error.response) {
         dispatch(setTimeoutAdminError(error.response.data.message));
-        if (error.response.status === 401) {
-          dispatch(logout());
-        }
       }
     }
   };
@@ -235,9 +202,6 @@ export const setPizzaTypeAvailable =
     } catch (error) {
       if (error.response) {
         dispatch(setTimeoutAdminError(error.response.data.message));
-        if (error.response.status === 401) {
-          dispatch(logout());
-        }
       }
     }
   };
@@ -248,9 +212,6 @@ export const addPizza = (pizza) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setTimeoutAdminError(error.response.data.message));
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
     }
   }
 };
@@ -262,9 +223,6 @@ export const deletePizza = (id) => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(setTimeoutAdminError(error.response.data.message));
-      if (error.response.status === 401) {
-        dispatch(logout());
-      }
     }
   }
 };

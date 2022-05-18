@@ -1,5 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../config";
+import { logout } from "../redux/actions/user";
+import store from "../redux/store";
 import {
   getAccessToken,
   removeAccessToken,
@@ -36,6 +38,7 @@ protectedApi.interceptors.response.use(
       originalRequest.url === `token/refresh`
     ) {
       removeAccessToken();
+      store.dispatch(logout());
       return Promise.reject(error);
     }
     if (
