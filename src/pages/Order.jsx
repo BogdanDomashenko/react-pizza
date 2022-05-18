@@ -28,12 +28,15 @@ const Order = () => {
   }, []);
 
   return (
-    <div className="wrapper">
+    <div className="order wrapper">
       <div className="container container--medium">
         {!error ? (
           order ? (
             <div>
-              <h1>Order #{id}</h1>
+              <div className="order__header">
+                <h1>Order #{id}</h1>
+                <h3>{order.status}</h3>
+              </div>
               {order.pizzas.map((pizza, index) => (
                 <OrderItem
                   key={index}

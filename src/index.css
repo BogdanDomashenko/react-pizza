@@ -1002,6 +1002,15 @@ body {
   overflow-x: auto;
 }
 
+.order__header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.order__header h3 {
+  color: #f24701;
+}
 /* medium devices */
 @media (max-width: 991.98px) {
   .navbar ul {
