@@ -11,7 +11,6 @@ import Button from "./ui/Button";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { role: userRole } = useSelector((state) => state.user);
   const { totalPrice, totalCount } = useSelector((state) => state.cart);
 
