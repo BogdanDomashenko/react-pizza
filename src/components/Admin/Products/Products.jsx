@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePagination } from "../../../hooks";
 import { getAdminPizzas } from "../../../redux/actions/admin";
+import Pagination from "../../Pagination";
 import AddProduct from "./AddProduct";
 import ProductItem from "./ProductItem";
 
 const Products = () => {
   const dispatch = useDispatch();
 
-  const { pizzas } = useSelector((state) => state.admin);
+  const { list: pizzas, totalCount } = useSelector(
+    (state) => state.admin.pizzas
+  );
+  const pagination = usePagination(0, totalCount, 5);
 
   useEffect(() => {
-    dispatch(getAdminPizzas());
-  }, []);
+    dispatch(getAdminPizzas(pagination.page, pagination.rowsPerPage));
+  }, [pagination.page]);
 
   return (
     <div className="products">
       <div className="products__content">
+        <AddProduct />
         <table className="table products-table">
           <thead>
             <tr>
@@ -34,7 +40,7 @@ const Products = () => {
               pizzas.map((pizza) => <ProductItem key={pizza.id} {...pizza} />)}
           </tbody>
         </table>
-        <AddProduct />
+        <Pagination {...pagination} />
       </div>
     </div>
   );

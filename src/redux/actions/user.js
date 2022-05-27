@@ -1,4 +1,3 @@
-import api from "../../services/api";
 import { logoutQuery, signInQuery } from "../../services/auth.service";
 import { resetAdmin } from "./admin";
 

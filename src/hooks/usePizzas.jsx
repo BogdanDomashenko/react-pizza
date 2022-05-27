@@ -1,21 +1,43 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import useSortedPizzas from "./useSortedPizzas";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPizzas } from "../redux/actions/pizzas";
 
-const usePizzas = () => {
-  const [pizzas, setPizzas] = useState(null);
-  const sortedPizzas = useSortedPizzas();
+const usePizzas = (page, size) => {
+  const dispatch = useDispatch();
+
+  const { sortBy } = useSelector(({ filters }) => filters);
+  const { list } = useSelector(({ pizzas }) => pizzas.items);
   const { category } = useSelector(({ filters }) => filters);
+  const [sortedItems, setSortedItems] = useState([]);
 
   useEffect(() => {
-    if (category && sortedPizzas) {
-      setPizzas(sortedPizzas.filter((pizza) => pizza.category === category));
-    } else {
-      setPizzas(sortedPizzas);
+    if (size) {
+      dispatch(fetchPizzas(page, size, category));
     }
-  }, [sortedPizzas]);
+  }, [page, size, category]);
 
-  return pizzas;
+  useEffect(() => {
+    if (list.length) {
+      setSortedItems(
+        [...list].sort((a, b) => {
+          switch (sortBy) {
+            case "popular":
+              return b.rating - a.rating;
+            case "price":
+              return a.price - b.price;
+            case "alphabet":
+              if (a.name < b.name) return -1;
+              if (a.name > b.name) return 1;
+              return 0;
+            default:
+              return 0;
+          }
+        })
+      );
+    }
+  }, [sortBy, list]);
+
+  return sortedItems;
 };
 
 export default usePizzas;

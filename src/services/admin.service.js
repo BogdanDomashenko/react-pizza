@@ -1,49 +1,61 @@
 import protectedApi from "./protectedApi";
 
-export const fetchOrdersList = async () => {
-  return protectedApi.get("orders/list").then((response) => response.data);
+export const fetchOrdersList = async (page, size) => {
+  const response = await protectedApi.get(
+    `order/list?page=${page}&&size=${size}`
+  );
+
+  return response.data;
 };
 
 export const updateOrderQuery = async (order) => {
-  return protectedApi
-    .post("order/update", { order })
-    .then((response) => response.data);
+  const response = await protectedApi.post("order/update", { order });
+  return response.data;
 };
 
-export const fetchAdminPizzas = async () => {
-  return protectedApi.get("pizzas/list").then((response) => response.data);
+export const fetchAdminPizzas = async (page, size) => {
+  const response = await protectedApi.get(
+    `pizza/list?page=${page}&&size=${size}`
+  );
+  return response.data;
 };
 
 export const updatePizzaQuery = async (pizza) => {
-  return protectedApi
-    .post("pizza/update", { pizza })
-    .then((response) => response.data);
+  const response = await protectedApi.post("pizza/update", { pizza });
+  return response.data;
 };
 
-export const fetchAllStockPizzas = async () => {
-  return protectedApi.get("stock/allPizzas").then((response) => response.data);
+export const fetchAllStockPizzas = async (page, size) => {
+  const response = await protectedApi.get(
+    `stock/allPizzas?page=${page}&&size=${size}`
+  );
+  return response.data;
 };
 
 export const setPizzaAvailableQuery = async (id) => {
-  return protectedApi
-    .get("stock/setPizzaAvailable/" + id)
-    .then((response) => response.data);
+  const response = await protectedApi.get("stock/setPizzaAvailable/" + id);
+  return response.data;
 };
 
 export const setPizzaNotAvailableQuery = async (id) => {
-  return protectedApi
-    .get("stock/setPizzaNotAvailable/" + id)
-    .then((response) => response.data);
+  const response = await protectedApi.get("stock/setPizzaNotAvailable/" + id);
+  return response.data;
 };
 
 export const setPizzaTypeAvailableQuery = async (id, typeID, available) => {
-  return protectedApi
-    .post("stock/setPizzaTypeAvailable", { id, typeID, available })
-    .then((response) => response.data);
+  const response = await protectedApi.post("stock/setPizzaTypeAvailable", {
+    id,
+    typeID,
+    available,
+  });
+  return response.data;
 };
 
 export const setPizzaSizeAvailableQuery = async (id, sizeID, available) => {
-  return protectedApi
-    .post("stock/setPizzaSizeAvailable", { id, sizeID, available })
-    .then((response) => response.data);
+  const response = await protectedApi.post("stock/setPizzaSizeAvailable", {
+    id,
+    sizeID,
+    available,
+  });
+  return response.data;
 };

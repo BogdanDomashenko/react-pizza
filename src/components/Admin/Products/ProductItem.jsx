@@ -1,19 +1,17 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import useInput from "../../../hooks/useInput";
-import {
-  deletePizza,
-  setAdminPizzaItem,
-  updatePizza,
-} from "../../../redux/actions/admin";
-import { updatePizzaQuery } from "../../../services/admin.service";
+import { deletePizza, updatePizza } from "../../../redux/actions/admin";
 import { Button, Input } from "../../ui";
 
 const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
+
+  const toggleIsEditing = () => {
+    setIsEditing(!isEditing);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -36,10 +34,6 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
     }
   }, [isEditing]);
 
-  const toggleIsEditing = () => {
-    setIsEditing(!isEditing);
-  };
-
   const onDeletePizza = () => {
     dispatch(deletePizza(id));
   };
@@ -49,7 +43,7 @@ const ProductItem = ({ id, name, imageUrl, price, category, rating }) => {
       <td>{id}</td>
       <td>{name}</td>
       <td>
-        <img className="product__img" src={imageUrl} />
+        <img alt={name} className="product__img" src={imageUrl} />
       </td>
       <td>{price}$</td>
       <td>{category}</td>

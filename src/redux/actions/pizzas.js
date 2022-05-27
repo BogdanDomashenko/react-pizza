@@ -1,4 +1,3 @@
-import axios from "axios";
 import api from "../../services/api";
 import { fetchPizzaSizes, fetchPizzaTypes } from "../../services/pizza.service";
 
@@ -36,18 +35,21 @@ export const resetPizzas = () => ({
   type: "RESET_PIZZAS",
 });
 
-export const fetchPizzas = () => (dispatch) => {
+export const fetchPizzas = (page, size, category) => (dispatch) => {
   dispatch(setLoaded(false));
-  api.get("stock/aviablePizzas").then((response) => {
-    const fields = {};
+  api
+    .get(`stock/aviablePizzas?page=${page}&&size=${size}&&category=${category}`)
+    .then((response) => {
+      const fields = {};
 
-    response.data.forEach((item) => {
-      fields[item.id] = { size: item.sizes[0], type: item.types[0] };
+      response.data.list.forEach((item) => {
+        fields[item.id] = { size: item.sizes[0], type: item.types[0] };
+      });
+
+      dispatch(setSelectedFields(fields));
+      dispatch(setPizzas(response.data));
+      dispatch(setLoaded(true));
     });
-
-    dispatch(setPizzas(response.data));
-    dispatch(setSelectedFields(fields));
-  });
 };
 
 export const getPizzaSizes = () => async (dispatch) => {

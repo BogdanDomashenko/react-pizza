@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/material.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { checkoutCart } from "../../redux/actions/cart";
 import { toggleModalVisibility } from "../../redux/actions/modals";
 import { MODALS } from "../../utils/constants";
 import { Button, Modal, ModalBody, ModalBottom } from "../ui";
-import PhoneInput from "react-phone-input-2";
 
-import "react-phone-input-2/lib/material.css";
-
-const СheckoutModal = ({}) => {
+const СheckoutModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

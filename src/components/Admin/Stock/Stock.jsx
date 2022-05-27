@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usePizzaTypes } from "../../../hooks";
+import { usePagination, usePizzaTypes } from "../../../hooks";
 import { usePizzaSizes } from "../../../hooks/usePizzaSizes";
 import { getAdminAllStockPizzas } from "../../../redux/actions/admin";
+import Pagination from "../../Pagination";
 import StockItem from "./StockItem";
 
 const Stock = () => {
@@ -10,11 +11,15 @@ const Stock = () => {
 
   const pizzaSizes = usePizzaSizes();
   const pizzaTypes = usePizzaTypes();
-  const { stockPizzas } = useSelector((state) => state.admin);
+  const { list: stockPizzas, totalCount } = useSelector(
+    (state) => state.admin.stockPizzas
+  );
+
+  const pagination = usePagination(0, totalCount, 5);
 
   useEffect(() => {
-    dispatch(getAdminAllStockPizzas());
-  }, []);
+    dispatch(getAdminAllStockPizzas(pagination.page, pagination.rowsPerPage));
+  }, [pagination.page]);
 
   return (
     <div className="stock">
@@ -46,6 +51,7 @@ const Stock = () => {
               ))}
           </tbody>
         </table>
+        {totalCount ? <Pagination {...pagination} /> : ""}
       </div>
     </div>
   );

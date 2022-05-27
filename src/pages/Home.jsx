@@ -2,15 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Categories,
+  Pagination,
   PizzaBlock,
   PizzaLoadingBlock,
   SortPopup,
 } from "../components";
-import { fetchPizzas } from "../redux/actions/pizzas";
-
-import { setSortBy } from "../redux/actions/filters";
-import { useCategories, useCategory, usePizzas } from "../hooks";
+import { useCategories, useCategory, usePagination, usePizzas } from "../hooks";
 import { addCartItem } from "../redux/actions/cart";
+import { setSortBy } from "../redux/actions/filters";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,20 +18,23 @@ const Home = () => {
   const { sortBy } = useSelector(({ filters }) => filters);
   const { items: cartItems } = useSelector((state) => state.cart);
   const { selectedFields } = useSelector((state) => state.pizzas);
+  const { totalCount } = useSelector(({ pizzas }) => pizzas.items);
 
   const [categoryNames, setCategoryNames] = useState();
   const categories = useCategories();
   const [category, setCategory] = useCategory();
 
-  const pizzas = usePizzas();
+  const pagination = usePagination(0, totalCount, 10);
+
+  const pizzas = usePizzas(pagination.page, pagination.rowsPerPage);
+
+  useEffect(() => {
+    console.log(pizzas);
+  }, [pizzas]);
 
   useEffect(() => {
     setCategoryNames(categories.map((category) => category.name));
   }, [categories]);
-
-  useEffect(() => {
-    dispatch(fetchPizzas());
-  }, [category, sortBy]);
 
   const onSelectCategory = useCallback((index) => {
     setCategory(index);
@@ -65,20 +67,23 @@ const Home = () => {
         />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      <div className="content__items">
-        {isLoaded && pizzas
-          ? pizzas.map((item, index) => (
-              <PizzaBlock
-                key={index}
-                cartCount={cartItems[item.id] ? cartItems[item.id].count : 0}
-                {...item}
-                onAddToCart={() => onAddItemToCart(item)}
-              />
-            ))
-          : Array(12)
-              .fill()
-              .map((_, index) => <PizzaLoadingBlock key={index} />)}
-      </div>
+      {
+        <div className="content__items">
+          {isLoaded && pizzas.length
+            ? pizzas.map((item, index) => (
+                <PizzaBlock
+                  key={index}
+                  cartCount={cartItems[item.id] ? cartItems[item.id].count : 0}
+                  {...item}
+                  onAddToCart={() => onAddItemToCart(item)}
+                />
+              ))
+            : Array(pizzas.length)
+                .fill()
+                .map((_, index) => <PizzaLoadingBlock key={index} />)}
+        </div>
+      }
+      {totalCount ? <Pagination {...pagination} /> : ""}
     </div>
   );
 };

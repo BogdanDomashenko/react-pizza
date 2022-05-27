@@ -1,7 +1,16 @@
 const initialState = {
-  orders: [],
-  pizzas: [],
-  stockPizzas: [],
+  orders: {
+    list: [],
+    totalCount: 0,
+  },
+  pizzas: {
+    list: [],
+    totalCount: 0,
+  },
+  stockPizzas: {
+    list: [],
+    totalCount: 0,
+  },
   error: null,
 };
 

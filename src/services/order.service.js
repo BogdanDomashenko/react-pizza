@@ -7,5 +7,5 @@ export const checkoutOrder = (number, orderList) => {
 };
 
 export const fetchOrder = (id) => {
-  return api.get("order/" + id).then((response) => response.data);
+  return api.get("order/info/" + id).then((response) => response.data);
 };

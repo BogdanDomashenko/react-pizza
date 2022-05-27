@@ -40,7 +40,7 @@ function SortPopup({ items, activeSortType, onClickSortType }) {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Sort b:</b>
+        <b>Sort by:</b>
         <span onClick={toggleVisiblePopup}>{activeLabel}</span>
       </div>
       {visiblePopup && (

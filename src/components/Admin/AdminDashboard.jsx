@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { SearchInput } from "../SearchInput";
 import { Navbar } from "../ui";
 import Orders from "./Orders";
 import Products from "./Products/Products";

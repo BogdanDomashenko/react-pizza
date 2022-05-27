@@ -1,10 +1,10 @@
-import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedField } from "../../redux/actions/pizzas";
 
-function PizzaBlock({
+const PizzaBlock = ({
   id,
   cartCount,
   imageUrl,
@@ -15,22 +15,30 @@ function PizzaBlock({
   category,
   rating,
   onAddToCart,
-}) {
+}) => {
   const dispatch = useDispatch();
 
-  const { size: activeSize, type: activeType } = useSelector(
-    (state) => state.pizzas.selectedFields[id]
-  );
+  const item = useSelector((state) => state.pizzas.selectedFields[id]);
+  const fields = useSelector((state) => state.pizzas.selectedFields);
+
+  // FIX BUG EXTRA RERENDER!!! IF WE REMOVE item check from return and open 2 page app will crush
+  useEffect(() => {
+    console.log(id, item);
+  }, [item]);
+
+  useEffect(() => {
+    console.log(fields);
+  }, [fields]);
 
   const onSelectSize = (size) => {
-    dispatch(setSelectedField(id, { type: activeType, size }));
+    dispatch(setSelectedField(id, { type: item.type, size }));
   };
 
   const onSelectType = (type) => {
-    dispatch(setSelectedField(id, { type, size: activeSize }));
+    dispatch(setSelectedField(id, { type, size: item.size }));
   };
 
-  return (
+  return item ? (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
@@ -40,7 +48,7 @@ function PizzaBlock({
             <li
               key={type}
               className={classNames({
-                active: type === activeType,
+                active: type === item.type,
                 disabled: !types.includes(type),
               })}
               onClick={() => onSelectType(type)}
@@ -53,7 +61,7 @@ function PizzaBlock({
           {sizes.map((size) => (
             <li
               key={size}
-              className={size === activeSize ? "active" : ""}
+              className={size === item.size ? "active" : ""}
               onClick={() => onSelectSize(size)}
             >
               {size} inch
@@ -84,8 +92,10 @@ function PizzaBlock({
         </div>
       </div>
     </div>
+  ) : (
+    ""
   );
-}
+};
 
 PizzaBlock.propTypes = {
   name: PropTypes.string.isRequired,

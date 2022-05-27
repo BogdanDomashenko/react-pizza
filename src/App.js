@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
-
-import { Home, Cart, PageNotFound, Order, Admin } from "./pages";
 import { Header, Modals } from "./components";
-
 import "./index.css";
-function App() {
-  useEffect(() => {}, []);
+import { Admin, Cart, Home, Order, PageNotFound } from "./pages";
 
+function App() {
   return (
     <div className="wrapper">
       <Modals />

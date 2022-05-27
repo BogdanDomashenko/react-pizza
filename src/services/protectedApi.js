@@ -8,8 +8,6 @@ import {
   setAccessToken,
 } from "./localStorage.service";
 
-const api = "http://localhost:3001/";
-
 const protectedApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,

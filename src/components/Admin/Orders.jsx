@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePagination } from "../../hooks";
 import { getOrders } from "../../redux/actions/admin";
 import { ORDER_STATUSES } from "../../utils/constants";
 import Order from "../Order/Order";
-import { Button, SelectPopup } from "../ui";
+import Pagination from "../Pagination";
+import { SelectPopup } from "../ui";
 
 const Orders = () => {
   const dispatch = useDispatch();
   const [filterStatusName, setFilterStatusName] = useState("All");
 
-  const { orders } = useSelector((state) => state.admin);
+  const { list: orders, totalCount } = useSelector(
+    (state) => state.admin.orders
+  );
   const [filteredOrders, setFilteredOrders] = useState(orders);
 
+  const pagination = usePagination(0, totalCount, 8);
   const statusesList = Object.values(ORDER_STATUSES);
 
   useEffect(() => {
-    dispatch(getOrders());
-  }, []);
+    dispatch(getOrders(pagination.page, pagination.rowsPerPage));
+  }, [pagination.page]);
 
   useEffect(() => {
     if (filterStatusName === "All") {
@@ -71,6 +76,7 @@ const Orders = () => {
             ))}
           </tbody>
         </table>
+        {totalCount ? <Pagination {...pagination} /> : ""}
       </div>
     </div>
   );

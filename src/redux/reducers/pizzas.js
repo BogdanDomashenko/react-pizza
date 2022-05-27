@@ -1,5 +1,8 @@
 const initialState = {
-  items: [],
+  items: {
+    list: [],
+    totalCount: 0,
+  },
   selectedFields: {},
   sizes: [],
   types: [],
@@ -47,9 +50,7 @@ const pizzas = (state = initialState, action) => {
       return initialState;
     }
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 

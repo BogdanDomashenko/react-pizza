@@ -10,8 +10,6 @@ import {
   updatePizzaQuery,
 } from "../../services/admin.service";
 import { addPizzaQuery, deletePizzaQuery } from "../../services/pizza.service";
-import { fetchPizzas } from "./pizzas";
-import { logout } from "./user";
 
 export const setOrders = (orders) => {
   return {
@@ -108,9 +106,9 @@ export const setTimeoutAdminError = (error) => async (dispatch) => {
   }, 3000);
 };
 
-export const getOrders = () => async (dispatch) => {
+export const getOrders = (page, size) => async (dispatch) => {
   try {
-    const orders = await fetchOrdersList();
+    const orders = await fetchOrdersList(page, size);
     dispatch(setOrders(orders));
   } catch (error) {}
 };
@@ -123,9 +121,9 @@ export const updateOrder = (id) => async (dispatch, getState) => {
   } catch (error) {}
 };
 
-export const getAdminPizzas = () => async (dispatch) => {
+export const getAdminPizzas = (page, size) => async (dispatch) => {
   try {
-    const pizzas = await fetchAdminPizzas();
+    const pizzas = await fetchAdminPizzas(page, size);
     dispatch(setAdminPizzas(pizzas));
   } catch (error) {}
 };
@@ -142,9 +140,9 @@ export const updatePizza = (id, pizza) => async (dispatch) => {
   }
 };
 
-export const getAdminAllStockPizzas = () => async (dispatch) => {
+export const getAdminAllStockPizzas = (page, size) => async (dispatch) => {
   try {
-    const pizzas = await fetchAllStockPizzas();
+    const pizzas = await fetchAllStockPizzas(page, size);
     dispatch(setAdminStockPizzas(pizzas));
   } catch (error) {
     if (error.response) {
