@@ -42,13 +42,12 @@ export const fetchPizzas = (page, size, category) => (dispatch) => {
     .then((response) => {
       const fields = {};
 
-      response.data.list.forEach((item) => {
+      /*       response.data.list.forEach((item) => {
         fields[item.id] = { size: item.sizes[0], type: item.types[0] };
       });
 
-      dispatch(setSelectedFields(fields));
+      dispatch(setSelectedFields(fields)); */
       dispatch(setPizzas(response.data));
-      dispatch(setLoaded(true));
     });
 };
 

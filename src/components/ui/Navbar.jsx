@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useCallback, useState } from "react";
-import Button from "./Button";
 import { CgMenu } from "react-icons/cg";
+import Button from "./Button";
 
 const Navbar = ({ items, activeItem, onItemClick }) => {
   const [isNavbarOppened, setIsNavbarOppened] = useState(false);
@@ -30,7 +30,9 @@ const Navbar = ({ items, activeItem, onItemClick }) => {
         {items &&
           items.map((item, index) => (
             <li
-              className={activeItem === item ? "active" : ""}
+              className={
+                activeItem.toLowerCase() === item.toLowerCase() ? "active" : ""
+              }
               onClick={() => onClick(item)}
               key={`${item}_${index}`}
             >

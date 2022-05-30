@@ -16,7 +16,7 @@ const Orders = () => {
   );
   const [filteredOrders, setFilteredOrders] = useState(orders);
 
-  const pagination = usePagination(0, totalCount, 8);
+  const pagination = usePagination(totalCount, 8);
   const statusesList = Object.values(ORDER_STATUSES);
 
   useEffect(() => {

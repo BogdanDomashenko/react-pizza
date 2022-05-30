@@ -24,13 +24,9 @@ const Home = () => {
   const categories = useCategories();
   const [category, setCategory] = useCategory();
 
-  const pagination = usePagination(0, totalCount, 10);
+  const pagination = usePagination(totalCount, 10);
 
   const pizzas = usePizzas(pagination.page, pagination.rowsPerPage);
-
-  useEffect(() => {
-    console.log(pizzas);
-  }, [pizzas]);
 
   useEffect(() => {
     setCategoryNames(categories.map((category) => category.name));
@@ -47,6 +43,8 @@ const Home = () => {
   const onAddItemToCart = useCallback((item) => {
     dispatch(addCartItem({ item, selectedProps: selectedFields[item.id] }));
   });
+
+  //!!! EXTRA RERENDR if we remove selectedFields and pizzas length equality check
 
   return (
     <div className="container">
@@ -69,7 +67,7 @@ const Home = () => {
       <h2 className="content__title">All pizzas</h2>
       {
         <div className="content__items">
-          {isLoaded && pizzas.length
+          {isLoaded && pizzas.length === Object.keys(selectedFields).length
             ? pizzas.map((item, index) => (
                 <PizzaBlock
                   key={index}

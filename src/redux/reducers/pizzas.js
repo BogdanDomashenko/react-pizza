@@ -12,9 +12,16 @@ const initialState = {
 const pizzas = (state = initialState, action) => {
   switch (action.type) {
     case "SET_PIZZAS":
+      const fields = {};
+
+      action.payload.list.forEach((item) => {
+        fields[item.id] = { size: item.sizes[0], type: item.types[0] };
+      });
+
       return {
         ...state,
         items: action.payload,
+        selectedFields: fields,
         isLoaded: true,
       };
     case "SET_LOADED":

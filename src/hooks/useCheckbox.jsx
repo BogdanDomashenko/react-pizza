@@ -8,6 +8,7 @@ const useCheckbox = (value) => {
   };
 
   const toggleChecked = () => {
+    console.log("1");
     setChecked(!checked);
   };
 

@@ -12,7 +12,7 @@ const Products = () => {
   const { list: pizzas, totalCount } = useSelector(
     (state) => state.admin.pizzas
   );
-  const pagination = usePagination(0, totalCount, 5);
+  const pagination = usePagination(totalCount, 5);
 
   useEffect(() => {
     dispatch(getAdminPizzas(pagination.page, pagination.rowsPerPage));

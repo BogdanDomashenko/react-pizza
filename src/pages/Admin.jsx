@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { AdminDashboard, LoginForm } from "../components";
 import { resetPizzas } from "../redux/actions/pizzas";
 import { ROLES } from "../utils/constants";
@@ -25,7 +26,7 @@ const Admin = () => {
     <div className="wrapper">
       <div>
         <div className="container">
-          {isAllowed ? <AdminDashboard /> : <LoginForm />}
+          {isAllowed ? <AdminDashboard outlet={<Outlet />} /> : <LoginForm />}
         </div>
       </div>
     </div>

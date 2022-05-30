@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedField } from "../../redux/actions/pizzas";
 
@@ -19,16 +19,6 @@ const PizzaBlock = ({
   const dispatch = useDispatch();
 
   const item = useSelector((state) => state.pizzas.selectedFields[id]);
-  const fields = useSelector((state) => state.pizzas.selectedFields);
-
-  // FIX BUG EXTRA RERENDER!!! IF WE REMOVE item check from return and open 2 page app will crush
-  useEffect(() => {
-    console.log(id, item);
-  }, [item]);
-
-  useEffect(() => {
-    console.log(fields);
-  }, [fields]);
 
   const onSelectSize = (size) => {
     dispatch(setSelectedField(id, { type: item.type, size }));
@@ -38,7 +28,7 @@ const PizzaBlock = ({
     dispatch(setSelectedField(id, { type, size: item.size }));
   };
 
-  return item ? (
+  return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
@@ -92,8 +82,6 @@ const PizzaBlock = ({
         </div>
       </div>
     </div>
-  ) : (
-    ""
   );
 };
 

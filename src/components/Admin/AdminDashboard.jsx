@@ -1,21 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Navbar } from "../ui";
-import Orders from "./Orders";
-import Products from "./Products/Products";
-import Stock from "./Stock/Stock";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ outlet }) => {
+  const navigate = useNavigate();
+
   const { error } = useSelector((state) => state.admin);
   const items = ["Orders", "Products", "Stock"];
-  const [activeINavbartem, setActiveNavbarItem] = useState(items[0]);
+  const [activeNavbarItem, setActiveNavbarItem] = useState(items[0]);
+
+  const path = useLocation().pathname.split("/");
+  const route = path[path.length - 1];
+
+  useEffect(() => {
+    setActiveNavbarItem(route);
+  }, [route]);
+
+  //FIX router-dom warning on navigation
+
+  const onNavbarChange = (item) => {
+    setActiveNavbarItem(item);
+    navigate("/admin/" + item.toLowerCase());
+  };
 
   return (
     <div className="admin-dashboard">
       <Navbar
         items={items}
-        activeItem={activeINavbartem}
-        onItemClick={setActiveNavbarItem}
+        activeItem={activeNavbarItem}
+        onItemClick={onNavbarChange}
       />
       {error && (
         <div className="admin-dashboard__message">
@@ -23,11 +37,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      <div className="admin-dashboard__content overflow-x-auto">
-        {activeINavbartem === items[0] && <Orders />}
-        {activeINavbartem === items[1] && <Products />}
-        {activeINavbartem === items[2] && <Stock />}
-      </div>
+      <div className="admin-dashboard__content overflow-x-auto">{outlet}</div>
     </div>
   );
 };

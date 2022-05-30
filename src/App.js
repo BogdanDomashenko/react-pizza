@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Header, Modals } from "./components";
+import { Header, Modals, Orders, Products, Stock } from "./components";
 import "./index.css";
 import { Admin, Cart, Home, Order, PageNotFound } from "./pages";
 
@@ -14,7 +14,11 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cart" element={<Cart />} />
           <Route exact path="/order/:id" element={<Order />} />
-          <Route exact path="/admin" element={<Admin />} />
+          <Route exact path="/admin" element={<Admin />}>
+            <Route exact path="products" element={<Products />} />
+            <Route exact path="orders" element={<Orders />} />
+            <Route exact path="stock" element={<Stock />} />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

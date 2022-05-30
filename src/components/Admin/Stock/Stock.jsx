@@ -15,7 +15,7 @@ const Stock = () => {
     (state) => state.admin.stockPizzas
   );
 
-  const pagination = usePagination(0, totalCount, 5);
+  const pagination = usePagination(totalCount, 5);
 
   useEffect(() => {
     dispatch(getAdminAllStockPizzas(pagination.page, pagination.rowsPerPage));
