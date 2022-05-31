@@ -1,7 +1,8 @@
+import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import { useDispatch, useSelector } from "react-redux";
-import useInput from "../../hooks/useInput";
+import * as yup from "yup";
 import { setAuthError, signIn } from "../../redux/actions/user";
 import { Button, Input } from "../ui";
 
@@ -10,25 +11,47 @@ const LoginForm = () => {
 
   const { authError } = useSelector((state) => state.user);
   const [phone, setPhone] = useState("");
-  const password = useInput();
 
-  const onSignInClick = () => {
-    dispatch(signIn(phone, password.value));
-  };
+  const schema = yup.object().shape({
+    phone: yup.string().required("Required field"),
+    password: yup.string().required("Required field"),
+  });
 
   useEffect(() => {
-    if (authError) {
-      dispatch(setAuthError(null));
-    }
-  }, [password.value, phone]);
+    dispatch(setAuthError());
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      phone: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      dispatch(signIn(values.phone, values.password));
+    },
+    onChange: () => {
+      if (authError) {
+        dispatch(setAuthError());
+      }
+    },
+    validationSchema: schema,
+  });
 
   return (
     <div className="login-form">
-      <div className="login-form__content">
+      <form className="login-form__content" onSubmit={formik.handleSubmit}>
         <PhoneInput
           country="us"
-          value={phone}
-          onChange={setPhone}
+          id="phone"
+          name="phone"
+          isValid={!formik.errors.phone}
+          onChange={(phone, country) =>
+            formik.setValues({
+              ...formik.values,
+              phone: phone,
+            })
+          }
+          value={formik.values.phone}
           className="login-form__phone"
           inputStyle={{ width: "100%" }}
         />
@@ -36,16 +59,24 @@ const LoginForm = () => {
           label="Password"
           type="password"
           className="login-form__password"
-          {...password}
+          id="password"
+          name="password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+          error={
+            formik.touched.password && formik.errors.password
+              ? formik.errors.password
+              : null
+          }
         />
         <Button
+          type="submit"
           className="login-form__button button--default button--orange"
-          onClick={onSignInClick}
         >
           <span>Sign in</span>
         </Button>
         <div className="login-form__error">{authError}</div>
-      </div>
+      </form>
     </div>
   );
 };

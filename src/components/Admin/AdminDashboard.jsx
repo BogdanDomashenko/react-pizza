@@ -14,6 +14,9 @@ const AdminDashboard = ({ outlet }) => {
   const route = path[path.length - 1];
 
   useEffect(() => {
+    if (route === "admin") {
+      navigate("/admin/orders");
+    }
     setActiveNavbarItem(route);
   }, [route]);
 

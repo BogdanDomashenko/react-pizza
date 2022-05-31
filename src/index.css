@@ -130,6 +130,16 @@ a {
   transition: box-shadow ease 0.25s, border-color ease 0.25s;
   box-sizing: border-box;
 }
+.input--error input {
+  outline-color: #f53737;
+}
+.input--error {
+  color: #f53737;
+}
+.input__error {
+  font-size: 14px;
+  color: #f53737;
+}
 .input input:focus {
   outline: 2px solid #1976d2;
 }

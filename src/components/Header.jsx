@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
 import logo from "../assets/img/pizza-logo.svg";
 import { logout } from "../redux/actions/user";
 import { ROLES } from "../utils/constants";
@@ -19,7 +18,7 @@ const Header = () => {
   };
 
   const onAdminClick = () => {
-    navigate("/admin");
+    navigate("/admin/orders");
   };
 
   return (
