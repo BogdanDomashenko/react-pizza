@@ -4,18 +4,18 @@ import PhoneInput from "react-phone-input-2";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { setAuthError, signIn } from "../../redux/actions/user";
+import { setAuthError, signUp } from "../../redux/actions/user";
 import { Button, Input } from "../ui";
 
-const LoginForm = () => {
+const SignUpForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	const { authError } = useSelector((state) => state.user);
 
 	useEffect(() => {
 		dispatch(setAuthError(null));
 	}, []);
+
+	const { authError } = useSelector((state) => state.user);
 
 	const schema = yup.object().shape({
 		phone: yup.string().required("Required field"),
@@ -28,19 +28,14 @@ const LoginForm = () => {
 			password: "",
 		},
 		onSubmit: (values) => {
-			dispatch(signIn(values.phone, values.password));
-		},
-		onChange: () => {
-			if (authError) {
-				dispatch(setAuthError());
-			}
+			dispatch(signUp(values.phone, values.password));
 		},
 		validationSchema: schema,
 	});
 
-	const onSignUpClick = (e) => {
+	const onSignInClick = (e) => {
 		e.preventDefault();
-		navigate("/auth/sign-up");
+		navigate("/auth/sign-in");
 	};
 
 	return (
@@ -78,15 +73,15 @@ const LoginForm = () => {
 				<div className="login-form__buttons">
 					<Button
 						className="login-form__button button--default button--light"
-						onClick={onSignUpClick}
+						onClick={onSignInClick}
 					>
-						<span>Sign up</span>
+						<span>Sign in</span>
 					</Button>
 					<Button
 						type="submit"
 						className="login-form__button button--default button--orange"
 					>
-						<span>Sign in</span>
+						<span>Sign up</span>
 					</Button>
 				</div>
 				<div className="login-form__error">{authError}</div>
@@ -95,4 +90,4 @@ const LoginForm = () => {
 	);
 };
 
-export default LoginForm;
+export default SignUpForm;

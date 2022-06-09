@@ -6,3 +6,5 @@ export { default as usePagination } from "./usePagination";
 export { default as usePhoneInput } from "./usePhoneInput";
 export { default as usePizzas } from "./usePizzas";
 export { default as usePizzaTypes } from "./usePizzaTypes";
+export { default as useRole } from "./useRole";
+export { default as useUserData } from "./useUserData";
