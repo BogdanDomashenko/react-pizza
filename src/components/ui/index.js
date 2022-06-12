@@ -10,3 +10,4 @@ export { default as ModalBody } from "./Modal/ModalBody";
 export { default as ModalBottom } from "./Modal/ModalBottom";
 export { default as Navbar } from "./Navbar";
 export { default as SelectPopup } from "./SelectPopup";
+export { default as MonthSelect } from "./MonthSelect";

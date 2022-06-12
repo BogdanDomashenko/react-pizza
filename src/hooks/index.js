@@ -8,3 +8,4 @@ export { default as usePizzas } from "./usePizzas";
 export { default as usePizzaTypes } from "./usePizzaTypes";
 export { default as useRole } from "./useRole";
 export { default as useUserData } from "./useUserData";
+export { default as useTotalSales } from "./useTotalSales";

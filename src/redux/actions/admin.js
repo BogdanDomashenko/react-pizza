@@ -3,6 +3,7 @@ import {
 	fetchAllStockPizzas,
 	fetchOrdersList,
 	fetchPizzasSales,
+	fetchPizzasSalesBy,
 	setPizzaAvailableQuery,
 	setPizzaNotAvailableQuery,
 	setPizzaSizeAvailableQuery,
@@ -102,6 +103,11 @@ const deleteAdminPizza = (id) => ({
 
 const setPizzasSales = (sales) => ({
 	type: "SET_PIZZAS_SALES",
+	payload: sales,
+});
+
+const setPizzaSalesBy = (sales) => ({
+	type: "SET_PIZZA_SALES_BY",
 	payload: sales,
 });
 
@@ -239,5 +245,14 @@ export const getPizzasSales = () => async (dispatch) => {
 		if (error.response) {
 			dispatch(setTimeoutAdminError(error.response.data.message));
 		}
+	}
+};
+
+export const getPizzaSalesBy = (by, num) => async (dispatch) => {
+	try {
+		const sales = await fetchPizzasSalesBy(by, num);
+		dispatch(setPizzaSalesBy(sales));
+	} catch (error) {
+		dispatch(setTimeoutAdminError(error.response.data.message));
 	}
 };

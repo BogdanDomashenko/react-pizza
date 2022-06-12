@@ -1084,6 +1084,10 @@ body {
 	border-radius: 20px;
 }
 
+.chart__selects .sort {
+	margin: 20px 0px;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
 	.navbar ul {

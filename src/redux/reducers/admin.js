@@ -186,6 +186,12 @@ const admin = (state = initialState, action) => {
 				pizzasSales: action.payload,
 			};
 		}
+		case "SET_PIZZA_SALES_BY": {
+			return {
+				...state,
+				sales: action.payload,
+			};
+		}
 		default:
 			return state;
 	}

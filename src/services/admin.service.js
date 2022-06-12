@@ -65,3 +65,11 @@ export const fetchPizzasSales = async () => {
 
 	return response.data;
 };
+
+export const fetchPizzasSalesBy = async (by, num) => {
+	const response = await protectedApi.get(
+		`statistics/sales-by?by=${by}&&num=${num}`
+	);
+
+	return response.data;
+};
