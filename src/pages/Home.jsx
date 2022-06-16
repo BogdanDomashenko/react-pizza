@@ -68,15 +68,22 @@ const Home = () => {
 			{
 				<div className="content__items">
 					{isLoaded && pizzas.length === Object.keys(selectedFields).length
-						? pizzas.map((item, index) => (
-								<PizzaBlock
-									key={index}
-									cartCount={cartItems[item.id] ? cartItems[item.id].count : 0}
-									{...item}
-									onAddToCart={() => onAddItemToCart(item)}
-								/>
-						  ))
-						: Array(pizzas.length)
+						? pizzas.map((item, index) =>
+								selectedFields[item.id] ? (
+									<PizzaBlock
+										key={index}
+										cartCount={
+											cartItems[item.id] ? cartItems[item.id].count : 0
+										}
+										selectedFields={selectedFields[item.id]}
+										{...item}
+										onAddToCart={() => onAddItemToCart(item)}
+									/>
+								) : (
+									""
+								)
+						  )
+						: Array(12)
 								.fill()
 								.map((_, index) => <PizzaLoadingBlock key={index} />)}
 				</div>

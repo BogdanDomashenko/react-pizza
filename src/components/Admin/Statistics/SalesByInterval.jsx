@@ -1,3 +1,4 @@
+import { useFormik } from "formik";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -11,13 +12,13 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
-import { useTotalSales } from "../../../hooks";
+import { useInput, useTotalSales } from "../../../hooks";
 import { getPizzaSalesBy } from "../../../redux/actions/admin";
 import MONTHS, { MONTHS_LIST } from "../../../utils/constants/months";
 import SELECT_SALES_BY, {
 	SELECT_SALES_BY_LIST,
 } from "../../../utils/constants/sales";
-import { MonthSelect, SelectPopup } from "../../ui";
+import { Button, Input, MonthSelect, SelectPopup } from "../../ui";
 
 const SalesByInterval = () => {
 	const date = new Date();
@@ -29,10 +30,9 @@ const SalesByInterval = () => {
 	const [selectBy, setSelectBy] = useState(SELECT_SALES_BY.MONTH);
 
 	const [month, setMonth] = useState(currentMonth);
-	const [year, setYear] = useState();
+	const [year, setYear] = useState(currentYear);
 
 	const { sales } = useSelector((state) => state.admin);
-	//const totalSales = useTotalSales(sales);
 
 	useEffect(() => {
 		if (selectBy === SELECT_SALES_BY.MONTH) {
@@ -40,10 +40,19 @@ const SalesByInterval = () => {
 		} else if (selectBy === SELECT_SALES_BY.YEAR) {
 			dispatch(getPizzaSalesBy(selectBy, year));
 		}
-	}, [selectBy, month]);
+	}, [selectBy, month, year]);
+
+	const yearForm = useFormik({
+		initialValues: {
+			year: currentYear,
+		},
+		onSubmit: (values) => {
+			setYear(values.year);
+		},
+	});
 
 	return (
-		<div className="statistics__item">
+		<div className="statistics__item statistics-interval">
 			<h2 className="statistics__title">Sales by interval</h2>
 			<div className="chart-container">
 				<div className="chart__selects">
@@ -56,7 +65,17 @@ const SalesByInterval = () => {
 					{selectBy === SELECT_SALES_BY.MONTH ? (
 						<MonthSelect activeItem={month} onSelectItem={setMonth} />
 					) : (
-						""
+						<form className="selects__year" onSubmit={yearForm.handleSubmit}>
+							<Input
+								type="number"
+								id="year"
+								name="year"
+								className="years__input"
+								onChange={yearForm.handleChange}
+								value={yearForm.values.year}
+							/>
+							<Button type="submit">Ok</Button>
+						</form>
 					)}
 				</div>
 				<ResponsiveContainer width="100%" height={500}>

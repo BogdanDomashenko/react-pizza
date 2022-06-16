@@ -1084,8 +1084,21 @@ body {
 	border-radius: 20px;
 }
 
+.chart__selects {
+	margin-bottom: 20px;
+}
+
 .chart__selects .sort {
 	margin: 20px 0px;
+}
+
+.chart__selects .years__input {
+	width: 100px;
+	margin-right: 10px;
+}
+
+.selects__year {
+	display: flex;
 }
 
 /* medium devices */
