@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { usePagination } from "../../hooks";
 import { getOrders } from "../../redux/actions/admin";
 import { ORDER_STATUSES } from "../../utils/constants";
-import Pagination from "../Pagination";
+import { Pagination } from "../";
 import { SelectPopup } from "../ui";
 import Order from "./Order";
 

@@ -1,6 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-function SelectPopup({ label, items, activeItem, onSelectItem, height }) {
+function SelectPopup({
+	label,
+	items,
+	activeItem,
+	onSelectItem,
+	height,
+	disabled,
+	className,
+}) {
 	const [visiblePopup, setVisiblePopup] = useState(false);
 	const sortRef = useRef();
 
@@ -26,7 +34,7 @@ function SelectPopup({ label, items, activeItem, onSelectItem, height }) {
 		};
 	}, []);
 	return (
-		<div ref={sortRef} className="sort">
+		<div ref={sortRef} className={"sort" + className}>
 			<div className="sort__label">
 				<svg
 					className={visiblePopup ? "rotated" : ""}

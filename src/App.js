@@ -8,6 +8,7 @@ import {
 	ProtectedRoute,
 	Statistics,
 	Stock,
+	Users,
 } from "./components";
 import { useRole } from "./hooks";
 import "./index.css";
@@ -48,6 +49,7 @@ function App() {
 						<Route exact path="orders" element={<Orders />} />
 						<Route exact path="stock" element={<Stock />} />
 						<Route exact path="statistics" element={<Statistics />} />
+						<Route exact path="users" element={<Users />} />
 					</Route>
 					<Route exact path="/auth">
 						<Route

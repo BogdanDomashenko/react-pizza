@@ -73,3 +73,15 @@ export const fetchPizzasSalesBy = async (by, num) => {
 
 	return response.data;
 };
+
+export const fetchAdminUsers = async () => {
+	const response = await protectedApi.get(`user/list`);
+
+	return response.data;
+};
+
+export const setUserRoleQuery = async (id, role) => {
+	const response = await protectedApi.post("user/set-role", { id, role });
+
+	return response.data;
+};

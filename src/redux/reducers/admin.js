@@ -12,6 +12,7 @@ const initialState = {
 		totalCount: 0,
 	},
 	pizzasSales: [],
+	users: [],
 	error: null,
 };
 
@@ -166,18 +167,24 @@ const admin = (state = initialState, action) => {
 			};
 		}
 		case "ADD_ADMIN_PIZZA": {
+			const firstPizzaItemId = state.pizzas.list[0];
 			return {
 				...state,
-				pizzas: [
+				pizzas: {
 					...state.pizzas,
-					{ id: state.pizzas.length + 1, ...action.payload },
-				],
+					list: [action.payload, ...state.pizzas.list],
+				},
 			};
 		}
 		case "DELETE_ADMIN_PIZZA": {
 			return {
 				...state,
-				pizzas: state.pizzas.filter((pizza) => pizza.id !== action.payload),
+				pizzas: {
+					...state.pizzas,
+					list: state.pizzas.list.filter(
+						(pizza) => pizza.id !== action.payload
+					),
+				},
 			};
 		}
 		case "SET_PIZZAS_SALES": {
@@ -190,6 +197,22 @@ const admin = (state = initialState, action) => {
 			return {
 				...state,
 				sales: action.payload,
+			};
+		}
+		case "SET_ADMIN_USERS": {
+			return {
+				...state,
+				users: action.payload,
+			};
+		}
+		case "SET_ADMIN_USER_ROLE": {
+			return {
+				...state,
+				users: state.users.map((user) =>
+					user.id === action.payload.id
+						? { ...user, role: action.payload.role }
+						: user
+				),
 			};
 		}
 		default:

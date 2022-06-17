@@ -7,7 +7,7 @@ const AdminDashboard = ({ outlet }) => {
 	const navigate = useNavigate();
 
 	const { error } = useSelector((state) => state.admin);
-	const items = ["Orders", "Products", "Stock", "Statistics"];
+	const items = ["Orders", "Products", "Stock", "Users", "Statistics"];
 	const [activeNavbarItem, setActiveNavbarItem] = useState(items[0]);
 
 	const path = useLocation().pathname.split("/");

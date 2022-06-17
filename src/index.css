@@ -1101,6 +1101,11 @@ body {
 	display: flex;
 }
 
+.user__select {
+	display: flex;
+	justify-content: center;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
 	.navbar ul {
@@ -1158,9 +1163,7 @@ body {
 		justify-content: center;
 		margin-top: 10px;
 		flex-wrap: wrap;
-	}
-	.header__button:last-child {
-		margin-top: 10px;
+		align-items: center;
 	}
 	.product__add {
 		flex-wrap: wrap;
@@ -1197,5 +1200,8 @@ body {
 	}
 	.cart__bottom-details span {
 		font-size: 18px;
+	}
+	.content {
+		padding: 40px 20px;
 	}
 }

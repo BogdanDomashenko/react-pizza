@@ -1,5 +1,6 @@
 import {
 	fetchAdminPizzas,
+	fetchAdminUsers,
 	fetchAllStockPizzas,
 	fetchOrdersList,
 	fetchPizzasSales,
@@ -8,6 +9,7 @@ import {
 	setPizzaNotAvailableQuery,
 	setPizzaSizeAvailableQuery,
 	setPizzaTypeAvailableQuery,
+	setUserRoleQuery,
 	updateOrderQuery,
 	updatePizzaQuery,
 } from "../../services/admin.service";
@@ -109,6 +111,16 @@ const setPizzasSales = (sales) => ({
 const setPizzaSalesBy = (sales) => ({
 	type: "SET_PIZZA_SALES_BY",
 	payload: sales,
+});
+
+const setAdminUsers = (users) => ({
+	type: "SET_ADMIN_USERS",
+	payload: users,
+});
+
+const setAdminUserRole = (id, role) => ({
+	type: "SET_ADMIN_USER_ROLE",
+	payload: { id, role },
 });
 
 export const setTimeoutAdminError = (error) => async (dispatch) => {
@@ -217,8 +229,8 @@ export const setPizzaTypeAvailable =
 	};
 export const addPizza = (pizza) => async (dispatch) => {
 	try {
-		await addPizzaQuery(pizza);
-		dispatch(addAdminPizza(pizza));
+		const newPizza = await addPizzaQuery(pizza);
+		dispatch(addAdminPizza(newPizza));
 	} catch (error) {
 		if (error.response) {
 			dispatch(setTimeoutAdminError(error.response.data.message));
@@ -252,6 +264,24 @@ export const getPizzaSalesBy = (by, num) => async (dispatch) => {
 	try {
 		const sales = await fetchPizzasSalesBy(by, num);
 		dispatch(setPizzaSalesBy(sales));
+	} catch (error) {
+		dispatch(setTimeoutAdminError(error.response.data.message));
+	}
+};
+
+export const getAdminUsers = () => async (dispatch) => {
+	try {
+		const users = await fetchAdminUsers();
+		dispatch(setAdminUsers(users));
+	} catch (error) {
+		dispatch(setTimeoutAdminError(error.response.data.message));
+	}
+};
+
+export const setUserRole = (id, role) => async (dispatch) => {
+	try {
+		await setUserRoleQuery(id, role);
+		dispatch(setAdminUserRole(id, role));
 	} catch (error) {
 		dispatch(setTimeoutAdminError(error.response.data.message));
 	}
