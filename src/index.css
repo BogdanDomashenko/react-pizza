@@ -1106,6 +1106,17 @@ body {
 	justify-content: center;
 }
 
+.users__search {
+	max-width: 200px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.users__search input {
+	margin-left: 2px;
+	height: 10px;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
 	.navbar ul {

@@ -2,30 +2,35 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { usePagination } from "../../../hooks";
+import { useFilteredUsers, useInput, usePagination } from "../../../hooks";
 import { getAdminUsers } from "../../../redux/actions/admin";
 import { Pagination } from "../../";
 import UserItem from "./UserItem";
+import { Button, Input } from "../../ui";
 
 const Users = () => {
 	const dispatch = useDispatch();
+	const searchInp = useInput();
 
-	const { users } = useSelector((state) => state.admin);
-	const pagination = usePagination(17, 10);
+	const filteredUsers = useFilteredUsers(searchInp.value);
+	const pagination = usePagination(filteredUsers.length, 10);
 
 	useEffect(() => {
 		dispatch(getAdminUsers());
 	}, []);
 
 	const offset = pagination.page * pagination.rowsPerPage;
-	const paginatedUsers = [...users].splice(
-		offset,
-		(pagination.page + 1) * pagination.rowsPerPage
+
+	const paginatedUsers = filteredUsers.filter(
+		(user, index) => index >= offset && index < offset + pagination.rowsPerPage
 	);
 
 	return (
 		<div className="users">
 			<div className="users__content">
+				<div className="users__search">
+					<Input label="Search" {...searchInp} />
+				</div>
 				<table className="table users-table">
 					<thead>
 						<tr>
