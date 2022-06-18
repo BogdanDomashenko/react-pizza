@@ -39,7 +39,7 @@ const LoginForm = () => {
 	});
 
 	const onSignUpClick = (e) => {
-		e.preventDefault();
+		//e.preventDefault();
 		navigate("/auth/sign-up");
 	};
 
@@ -77,6 +77,7 @@ const LoginForm = () => {
 				/>
 				<div className="login-form__buttons">
 					<Button
+						type="button"
 						className="login-form__button button--default button--light"
 						onClick={onSignUpClick}
 					>

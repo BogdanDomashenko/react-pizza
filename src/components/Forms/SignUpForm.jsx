@@ -72,6 +72,7 @@ const SignUpForm = () => {
 				/>
 				<div className="login-form__buttons">
 					<Button
+						type="button"
 						className="login-form__button button--default button--light"
 						onClick={onSignInClick}
 					>
