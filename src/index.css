@@ -1117,6 +1117,109 @@ body {
 	height: 10px;
 }
 
+.order-card .order-cart__info {
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #f3f3f3;
+	-webkit-transition: background-color 100ms linear;
+	-ms-transition: background-color 100ms linear;
+	transition: background-color 100ms linear;
+}
+
+.order-cart__info:hover {
+	background-color: #e0e0e0;
+}
+
+.orders__item {
+	margin-top: 20px;
+}
+
+.order-cart__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 8px;
+	width: 15%;
+	box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+	text-align: center;
+}
+
+.order-cart__item span {
+	font-weight: 600;
+}
+
+.order-card__item--status {
+	background-color: #fe5f1e;
+}
+
+.order-card__item--status span {
+	color: #fff;
+}
+
+.order-cart__dropdown-items {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: all 0.5s ease;
+	background-color: #f8f8f8;
+	padding: 0px;
+	border-radius: 0px 0px 20px 20px;
+}
+
+.order-card--active .order-cart__dropdown-items {
+	opacity: 1;
+	height: auto;
+	background-color: #f8f8f8;
+	padding: 20px 80px;
+	border-radius: 0px 0px 20px 20px;
+	transform: translateY(0);
+}
+
+.order-card--active .order-cart__info {
+	border-radius: 20px 20px 0px 0px;
+}
+
+.order-cart-item {
+	display: flex;
+	justify-content: space-between;
+	text-align: start;
+}
+
+.order-cart-item__img .pizza-block__image {
+	width: 80px;
+	height: 80px;
+	mix-blend-mode: multiply;
+}
+
+.order-cart-item__img {
+	width: 15%;
+}
+
+.order-cart-item__details {
+	width: 40%;
+}
+
+.order-cart-item__count {
+	width: 20%;
+}
+
+.order-cart-item {
+	display: flex;
+	align-items: center;
+}
+
+.order-cart-item:not(:last-child) {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
 	.navbar ul {
@@ -1214,5 +1317,15 @@ body {
 	}
 	.content {
 		padding: 40px 20px;
+	}
+	.order-cart__item:not(:last-child) {
+		margin-bottom: 10px;
+	}
+	.order-cart__item {
+		width: 50%;
+	}
+	.order-card__item--status {
+		width: 100%;
+		order: 1;
 	}
 }
