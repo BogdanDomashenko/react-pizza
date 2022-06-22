@@ -55,48 +55,46 @@ const Header = () => {
 					) : (
 						""
 					)}
-					<div className="header__cart">
-						{userRole === ROLES.admin ? (
-							<div className="header__button">
-								<Button
-									className="button--default button--light"
-									onClick={onAdminClick}
-								>
-									<span>Admin</span>
-								</Button>
-							</div>
-						) : (
-							""
-						)}
-						{userRole !== ROLES.phantom ? (
-							<div className="header__button">
-								<Button
-									className="button--default button--light"
-									onClick={onLogoutClick}
-								>
-									<span>Logout</span>
-								</Button>
-							</div>
-						) : (
-							<div className="header__button">
-								<Button
-									className="button--default button--light"
-									onClick={onSignInClick}
-								>
-									<span>Sign in</span>
-								</Button>
-							</div>
-						)}
+					{userRole === ROLES.admin ? (
 						<div className="header__button">
-							<Link to="/cart">
-								<Button className="button--cart button--orange">
-									<span>{totalPrice} $</span>
-									<div className="button__delimiter"></div>
-									<CartIcon />
-									<span>{totalCount}</span>
-								</Button>
-							</Link>
+							<Button
+								className="button--default button--light"
+								onClick={onAdminClick}
+							>
+								<span>Admin</span>
+							</Button>
 						</div>
+					) : (
+						""
+					)}
+					{userRole !== ROLES.phantom ? (
+						<div className="header__button">
+							<Button
+								className="button--default button--light"
+								onClick={onLogoutClick}
+							>
+								<span>Logout</span>
+							</Button>
+						</div>
+					) : (
+						<div className="header__button">
+							<Button
+								className="button--default button--light"
+								onClick={onSignInClick}
+							>
+								<span>Sign in</span>
+							</Button>
+						</div>
+					)}
+					<div className="header__button header__button--cart">
+						<Link to="/cart">
+							<Button className="button--cart button--orange">
+								<span>{totalPrice} $</span>
+								<div className="button__delimiter"></div>
+								<CartIcon />
+								<span>{totalCount}</span>
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</div>
