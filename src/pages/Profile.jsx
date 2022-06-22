@@ -23,14 +23,18 @@ const Profile = () => {
 				) : (
 					""
 				)} */}
-				{list.length
-					? list.map((item) => {
-							console.log(item);
+				<h3>Orders</h3>
+				<div className="orders__list">
+					{list.length ? (
+						list.map((item) => {
 							return (
 								<OrderCard className="orders__item" key={item.id} {...item} />
 							);
-					  })
-					: ""}
+						})
+					) : (
+						<p>You don't have orders yet</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);

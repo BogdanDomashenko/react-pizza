@@ -34,13 +34,13 @@ const OrderCard = ({
 				<div className="order-cart__item">
 					<span className="text">{pizzas.length} pieces</span>
 				</div>
-				<div className="order-cart__item">
+				<div className="order-cart__item order-cart__item--price">
 					<span className="text">{totalOrderPrice}$</span>
 				</div>
 				<div className="order-cart__item order-card__item--status">
 					<span className="text">{status}</span>
 				</div>
-				<div className="order-cart__item">
+				<div className="order-cart__item order-cart__item--date">
 					<span className="text">{formatDate(date)}</span>
 				</div>
 			</div>

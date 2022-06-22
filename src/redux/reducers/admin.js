@@ -29,11 +29,14 @@ const admin = (state = initialState, action) => {
 		case "SET_ORDER_STATUS": {
 			return {
 				...state,
-				orders: state.orders.map((order) =>
-					order.id === action.payload.id
-						? { ...order, status: action.payload.status }
-						: order
-				),
+				orders: {
+					...state,
+					list: state.orders.list.map((order) =>
+						order.id === action.payload.id
+							? { ...order, status: action.payload.status }
+							: order
+					),
+				},
 			};
 		}
 		case "SET_ADMIN_PIZZAS": {
@@ -45,7 +48,7 @@ const admin = (state = initialState, action) => {
 		case "SET_ADMIN_PIZZA_ITEM": {
 			return {
 				...state,
-				pizzas: state.pizzas.map((pizza) =>
+				pizzas: state.pizzas.list.map((pizza) =>
 					pizza.id === action.payload.id
 						? { id: action.payload.id, ...action.payload.item }
 						: pizza

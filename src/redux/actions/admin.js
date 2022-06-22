@@ -139,7 +139,7 @@ export const getOrders = (page, size) => async (dispatch) => {
 
 export const updateOrder = (id) => async (dispatch, getState) => {
 	const state = getState();
-	const order = state.admin.orders.find((order) => order.id === id);
+	const order = state.admin.orders.list.find((order) => order.id === id);
 	try {
 		await updateOrderQuery(order);
 	} catch (error) {}
