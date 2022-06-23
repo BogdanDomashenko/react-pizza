@@ -9,43 +9,48 @@ import { MODALS } from "../../utils/constants";
 import { Button, Modal, ModalBody, ModalBottom } from "../ui";
 
 const СheckoutModal = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-  const { orderId } = useSelector((state) => state.cart);
-  const [phone, setPhone] = useState("");
+	const { orderId } = useSelector((state) => state.cart);
+	const [phone, setPhone] = useState("");
 
-  const onConfirmModal = () => {
-    dispatch(checkoutCart(phone));
-    dispatch(toggleModalVisibility(MODALS.СheckoutModal));
-    dispatch(toggleModalVisibility(MODALS.СheckoutResultModal));
-  };
+	const onConfirmModal = () => {
+		dispatch(checkoutCart(phone));
+		dispatch(toggleModalVisibility(MODALS.СheckoutModal));
+		dispatch(toggleModalVisibility(MODALS.СheckoutResultModal));
+	};
 
-  useEffect(() => {
-    if (orderId) {
-      navigate("/order/" + orderId);
-    }
-  }, [orderId]);
+	useEffect(() => {
+		if (orderId) {
+			navigate("/order/" + orderId);
+		}
+	}, [orderId]);
 
-  return (
-    <Modal
-      className="checkout-modal"
-      name={MODALS.СheckoutModal}
-      title="Checkout"
-    >
-      <ModalBody className="checkout-modal__body">
-        <PhoneInput country={"us"} value={phone} onChange={setPhone} />
-      </ModalBody>
-      <ModalBottom className="checkout-modal__bottom">
-        <Button
-          className="button--default button--orange"
-          onClick={onConfirmModal}
-        >
-          <span>Checkout</span>
-        </Button>
-      </ModalBottom>
-    </Modal>
-  );
+	return (
+		<Modal
+			className="checkout-modal"
+			name={MODALS.СheckoutModal}
+			title="Checkout"
+		>
+			<ModalBody className="checkout-modal__body">
+				<PhoneInput
+					country={"us"}
+					value={phone}
+					onChange={setPhone}
+					className="checkout-modal__phone"
+				/>
+			</ModalBody>
+			<ModalBottom className="checkout-modal__bottom">
+				<Button
+					className="button--default button--orange"
+					onClick={onConfirmModal}
+				>
+					<span>Checkout</span>
+				</Button>
+			</ModalBottom>
+		</Modal>
+	);
 };
 
 export default СheckoutModal;

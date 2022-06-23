@@ -1220,6 +1220,10 @@ body {
 	margin-bottom: 20px;
 }
 
+.checkout-modal__phone input {
+	width: 100% !important;
+}
+
 /* medium devices */
 @media (max-width: 991.98px) {
 	.navbar ul {
