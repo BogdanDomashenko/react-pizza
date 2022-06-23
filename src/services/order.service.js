@@ -1,8 +1,16 @@
 import api from "./api";
 import protectedApi from "./protectedApi";
 
-export const checkoutOrder = async (number, orderList) => {
-	const response = await api.post("order/checkout", { orderList, number });
+export const checkoutOrder = async (orderList) => {
+	const response = await api.post("order/checkout", { orderList });
+	return response.data;
+};
+
+export const phantomCheckoutOrderQury = async (number, orderList) => {
+	const response = await api.post("order/phantom-checkout", {
+		orderList,
+		number,
+	});
 	return response.data;
 };
 
