@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useCallback, useState } from "react";
 import { CgMenu } from "react-icons/cg";
-import Button from "./Button";
+import Button from "./Button/Button";
 
 const Navbar = ({ items, activeItem, onItemClick }) => {
 	const [isNavbarOppened, setIsNavbarOppened] = useState(false);

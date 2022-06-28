@@ -2,7 +2,7 @@ import api from "./api";
 import protectedApi from "./protectedApi";
 
 export const checkoutOrder = async (orderList) => {
-	const response = await api.post("order/checkout", { orderList });
+	const response = await protectedApi.post("order/checkout", { orderList });
 	return response.data;
 };
 

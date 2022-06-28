@@ -5,8 +5,7 @@ import logo from "../assets/img/pizza-logo.svg";
 import { useRole } from "../hooks";
 import { logout } from "../redux/actions/user";
 import { ROLES } from "../utils/constants";
-import { CartIcon } from "./ui";
-import Button from "./ui/Button";
+import { Button, CartIcon } from "./ui";
 
 const Header = () => {
 	const dispatch = useDispatch();

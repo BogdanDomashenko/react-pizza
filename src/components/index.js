@@ -2,7 +2,7 @@ export { default as Categories } from "../components/Categories";
 export { default as Header } from "../components/Header";
 export { default as SortPopup } from "../components/SortPopup";
 export { default as AdminDashboard } from "./Admin/AdminDashboard";
-export { default as Orders } from "./Admin/Orders";
+export { default as Orders } from "./Admin/Orders/Orders";
 export { default as Products } from "./Admin/Products/Products";
 export { default as Statistics } from "./Admin/Statistics/Statistics";
 export { default as Stock } from "./Admin/Stock/Stock";
@@ -14,9 +14,7 @@ export {
 	default as SignUpForm,
 } from "./Forms/SignUpForm";
 export { default as Modals } from "./Modals/Modals";
-export { default as Order } from "./Order/Order";
 export { default as OrderItem } from "./Order/OrderItem";
-export { default as OrdersTable } from "./Order/OrdersTable";
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as ClientSidePaginationItems } from "./Pagination/ClientSidePaginationItems";
 export { default as PizzaBlock } from "./PizzaBlock";

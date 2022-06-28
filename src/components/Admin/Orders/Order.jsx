@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setOrderStatus, updateOrder } from "../../redux/actions/admin";
-import { ORDER_STATUSES } from "../../utils/constants";
-import { Button, SelectPopup } from "../ui";
+import { ORDER_STATUSES } from "../../../utils/constants";
+import { setOrderStatus, updateOrder } from "../../../redux/actions/admin";
+import { Button, SelectPopup } from "../../ui";
 
 const statusesList = Object.values(ORDER_STATUSES);
 
@@ -29,8 +29,8 @@ const Order = ({ id, user, count, status, date, price, editing }) => {
 	return (
 		<tr key={id}>
 			<td>{id}</td>
-			{editing && <td>{user.id}</td>}
-			{editing && <td>{user.phoneNumber}</td>}
+			{editing && <td>{user && user.id}</td>}
+			{editing && <td>{user && user.phoneNumber}</td>}
 			<td>{count}</td>
 			<td>{price}$</td>
 			<td>

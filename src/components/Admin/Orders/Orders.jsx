@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import OrdersTable from "../Order/OrdersTable";
+import OrdersTable from "./OrdersTable";
 
 const Orders = () => {
 	const { list: orders, totalCount } = useSelector(
