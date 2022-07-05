@@ -1,5 +1,5 @@
 import api from "../../services/api";
-import { fetchPizzaSizes, fetchPizzaTypes } from "../../services/pizza.service";
+import {fetchAviablePizzas, fetchPizzaSizes, fetchPizzaTypes} from "../../services/pizza.service";
 
 export const setLoaded = (payload) => ({
 	type: "SET_LOADED",
@@ -35,13 +35,14 @@ export const resetPizzas = () => ({
 	type: "RESET_PIZZAS",
 });
 
-export const fetchPizzas = (page, size, category) => (dispatch) => {
+export const fetchPizzas = (page, size, category) => async (dispatch) => {
 	dispatch(setLoaded(false));
-	api
-		.get(`stock/aviablePizzas?page=${page}&&size=${size}&&category=${category}`)
-		.then((response) => {
-			dispatch(setPizzas(response.data));
-		});
+	const pizzas = await fetchAviablePizzas(page, size, category);
+
+	const { list, totalCount, sizes, types } = pizzas;
+	dispatch(setPizzaSizes(sizes));
+	dispatch(setPizzaTypes(types));
+	dispatch(setPizzas({ list, totalCount }));
 };
 
 export const getPizzaSizes = () => async (dispatch) => {
