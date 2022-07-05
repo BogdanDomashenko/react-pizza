@@ -21,7 +21,7 @@ const Navbar = ({ items, activeItem, onItemClick }) => {
 				"navbar--oppened": isNavbarOppened,
 			})}
 		>
-			<Button className="navbar__button button--orange" onClick={toggleNavbar}>
+			<Button className="navbar__button button--default button--orange" onClick={toggleNavbar}>
 				<span>
 					<CgMenu className="burger-icon" />
 				</span>

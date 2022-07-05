@@ -22,8 +22,9 @@ const Products = () => {
 		<div className="products">
 			<div className="products__content">
 				<AddProduct />
-				<table className="table products-table">
-					<thead>
+				<div className="overflow-x-auto">
+					<table className="table products-table">
+						<thead>
 						<tr>
 							<th>id</th>
 							<th>name</th>
@@ -34,12 +35,13 @@ const Products = () => {
 							<th>action</th>
 							<th>delete</th>
 						</tr>
-					</thead>
-					<tbody>
+						</thead>
+						<tbody>
 						{pizzas &&
 							pizzas.map((pizza) => <ProductItem key={pizza.id} {...pizza} />)}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 				<Pagination {...pagination} />
 			</div>
 		</div>

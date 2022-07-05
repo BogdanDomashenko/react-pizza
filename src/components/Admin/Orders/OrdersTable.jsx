@@ -44,9 +44,10 @@ const OrdersTable = ({ orders, totalCount, editing }) => {
 					onSelectItem={onSelectStatus}
 				/>
 			</div>
-			<div className="orders__content">
-				<table className="table orders-table">
-					<thead>
+			<div className="orders__content overflow-x-auto">
+				<div className="overflow-x-auto">
+					<table className="table orders-table">
+						<thead>
 						<tr>
 							<th>id</th>
 							{editing && <th>user id</th>}
@@ -58,8 +59,8 @@ const OrdersTable = ({ orders, totalCount, editing }) => {
 							<th>View</th>
 							{editing ? <th>Update</th> : <th></th>}
 						</tr>
-					</thead>
-					<tbody>
+						</thead>
+						<tbody>
 						{filteredOrders.map((order) => (
 							<Order
 								key={order.id}
@@ -72,8 +73,9 @@ const OrdersTable = ({ orders, totalCount, editing }) => {
 								editing={editing}
 							/>
 						))}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 				{totalCount ? <Pagination {...pagination} /> : ""}
 			</div>
 		</div>

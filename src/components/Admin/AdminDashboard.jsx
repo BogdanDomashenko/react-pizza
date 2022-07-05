@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navbar } from "../ui";
+import {Categories} from "../index";
 
 const AdminDashboard = ({ outlet }) => {
 	const navigate = useNavigate();
@@ -40,7 +41,7 @@ const AdminDashboard = ({ outlet }) => {
 				</div>
 			)}
 
-			<div className="admin-dashboard__content overflow-x-auto">{outlet}</div>
+			<div className="admin-dashboard__content">{outlet}</div>
 		</div>
 	);
 };

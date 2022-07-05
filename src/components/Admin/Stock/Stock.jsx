@@ -24,8 +24,9 @@ const Stock = () => {
 	return (
 		<div className="stock">
 			<div className="stock__content">
-				<table className="table stock-table">
-					<thead>
+				<div className="overflow-x-auto">
+					<table className="table stock-table">
+						<thead>
 						<tr>
 							<th>available</th>
 							<th>id</th>
@@ -33,8 +34,8 @@ const Stock = () => {
 							<th>available sizes</th>
 							<th>available types</th>
 						</tr>
-					</thead>
-					<tbody>
+						</thead>
+						<tbody>
 						{stockPizzas &&
 							pizzaSizes &&
 							pizzaSizes &&
@@ -49,8 +50,9 @@ const Stock = () => {
 									availableTypes={pizza.types}
 								/>
 							))}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 				{totalCount ? <Pagination {...pagination} /> : ""}
 			</div>
 		</div>
