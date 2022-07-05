@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { ORDER_STATUSES } from "../../../utils/constants";
 import { setOrderStatus, updateOrder } from "../../../redux/actions/admin";
 import { Button, SelectPopup } from "../../ui";
+import {useLocale} from "../../../hooks";
 
 const statusesList = Object.values(ORDER_STATUSES);
 
 const Order = ({ id, user, count, status, date, price, editing }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const locale = useLocale();
 
+	const parsedDate = new Date(date);
 	const [selectedStatus, setSelectedStatus] = useState(status);
 
 	const onSelectStatus = (status) => {
@@ -44,7 +47,7 @@ const Order = ({ id, user, count, status, date, price, editing }) => {
 					selectedStatus
 				)}
 			</td>
-			<td>{date}</td>
+			<td>{parsedDate.toLocaleString(locale)}</td>
 			<td className="orders-table__button">
 				<Button
 					className="button--default button--default"
