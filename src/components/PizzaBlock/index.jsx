@@ -61,7 +61,7 @@ const PizzaBlock = ({
 				</ul>
 			</div>
 			<div className="pizza-block__bottom">
-				<div className="pizza-block__price">from {price}$</div>
+				<div className="pizza-block__price">from {price+selectedFields.additionalPrice}$</div>
 				<div
 					className="button button--outline button--add"
 					onClick={onAddToCart}

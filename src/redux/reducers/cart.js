@@ -9,6 +9,7 @@ const initialState = {
 const cart = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_CART_ITEM": {
+      const totalItemPrice = action.payload.item.price + action.payload.selectedProps.additionalPrice;
       const currentId =
         action.payload.item.id +
         "_" +
@@ -20,13 +21,13 @@ const cart = (state = initialState, action) => {
             item: action.payload.item,
             selectedProps: action.payload.selectedProps,
             count: 1,
-            totalPrice: action.payload.item.price,
+            totalPrice: totalItemPrice,
           }
         : {
             ...state.items[currentId],
             count: state.items[currentId].count + 1,
             totalPrice:
-              action.payload.item.price * (state.items[currentId].count + 1),
+                totalItemPrice * (state.items[currentId].count + 1),
           };
       const newItems = {
         ...state.items,
@@ -36,19 +37,20 @@ const cart = (state = initialState, action) => {
       return {
         ...state,
         items: newItems,
-        totalPrice: state.totalPrice + currentPizzaItem.item.price,
+        totalPrice: state.totalPrice + (currentPizzaItem.item.price + currentPizzaItem.selectedProps.additionalPrice),
         totalCount: state.totalCount + 1,
       };
     }
     case "REMOVE_CART_ITEM": {
       const currentItem = state.items[action.payload];
       const newItems = Object.assign({}, state.items);
+
       delete newItems[action.payload];
       return {
         ...state,
         items: newItems,
         totalCount: state.totalCount - currentItem.count,
-        totalPrice: state.totalPrice - currentItem.totalPrice,
+        totalPrice: state.totalPrice - (currentItem.totalPrice + currentItem.selectedProps.additionalPrice),
       };
     }
     case "RESET_CART": {
@@ -57,12 +59,14 @@ const cart = (state = initialState, action) => {
     case "CART_ITEM_COUNT_INC": {
       const currentPizzaItem = state.items[action.payload];
 
+      const itemPrice = currentPizzaItem.item.price + currentPizzaItem.selectedProps.additionalPrice;
+
       const newItems = {
         ...state.items,
         [action.payload]: {
           ...currentPizzaItem,
           count: currentPizzaItem.count + 1,
-          totalPrice: currentPizzaItem.totalPrice + currentPizzaItem.item.price,
+          totalPrice: currentPizzaItem.totalPrice + itemPrice,
         },
       };
 
@@ -70,18 +74,20 @@ const cart = (state = initialState, action) => {
         ...state,
         items: newItems,
         totalCount: state.totalCount + 1,
-        totalPrice: state.totalPrice + currentPizzaItem.item.price,
+        totalPrice: state.totalPrice + itemPrice,
       };
     }
     case "CART_ITEM_COUNT_DEC": {
       const currentPizzaItem = state.items[action.payload];
+
+      const itemPrice = currentPizzaItem.item.price + currentPizzaItem.selectedProps.additionalPrice;
 
       const newItems = {
         ...state.items,
         [action.payload]: {
           ...currentPizzaItem,
           count: currentPizzaItem.count - 1,
-          totalPrice: currentPizzaItem.totalPrice - currentPizzaItem.item.price,
+          totalPrice: currentPizzaItem.totalPrice - itemPrice,
         },
       };
 
@@ -93,7 +99,7 @@ const cart = (state = initialState, action) => {
         ...state,
         items: newItems,
         totalCount: state.totalCount - 1,
-        totalPrice: state.totalPrice - currentPizzaItem.item.price,
+        totalPrice: state.totalPrice - itemPrice,
       };
     }
     case "SET_CHECKOUT_CART_MESSENGE": {
