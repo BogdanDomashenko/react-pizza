@@ -1,10 +1,13 @@
 import React from 'react';
-import { SignUpForm } from '../components';
+import {Loader, SignUpForm} from '../components';
+import {useSelector} from "react-redux";
 
 export const SignUp = () => {
+    const { isLoading } = useSelector(state => state.user);
+
   return (
-    <div>
-      <SignUpForm />
+    <div className="container container--medium">
+        { isLoading ? <Loader /> :  <SignUpForm /> }
     </div>
   )
 }

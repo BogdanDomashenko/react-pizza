@@ -40,6 +40,13 @@ export const setOrders = (orders) => {
 	};
 };
 
+const setUserLoading = (value) => {
+	return {
+		type: "SET_USER_LOADING",
+		payload: value
+	}
+}
+
 export const getUserOrders = (page, size) => async (dispatch) => {
 	try {
 		const data = await fetchUserOrders(page, size);
@@ -51,20 +58,26 @@ export const getUserOrders = (page, size) => async (dispatch) => {
 
 export const signUp = (number, password) => async (dispatch) => {
 	try {
+		dispatch(setUserLoading(true));
 		const { id, phoneNumber, role } = await signUpQery(number, password);
 		dispatch(setUserData({ id, phoneNumber }));
 		dispatch(setUserRole(role));
+		dispatch(setUserLoading(false));
 	} catch (error) {
+		dispatch(setUserLoading(false));
 		dispatch(setAuthError(error.response.data.message));
 	}
 };
 
 export const signIn = (number, password) => async (dispatch) => {
 	try {
+		dispatch(setUserLoading(true));
 		const { id, phoneNumber, role } = await signInQuery(number, password);
 		dispatch(setUserData({ id, phoneNumber }));
 		dispatch(setUserRole(role));
+		dispatch(setUserLoading(false));
 	} catch (error) {
+		dispatch(setUserLoading(false));
 		dispatch(setAuthError(error.response.data.message));
 	}
 };

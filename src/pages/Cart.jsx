@@ -13,12 +13,13 @@ import {
 } from "../redux/actions/cart";
 import { toggleModalVisibility } from "../redux/actions/modals";
 import { useRole, useUserData } from "../hooks";
+import {Oval} from "react-loader-spinner";
 
 const Cart = () => {
 	const dispatch = useDispatch();
 	const role = useRole();
 	const user = useUserData();
-	const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
+	const { items, totalPrice, totalCount, isCheckouting } = useSelector((state) => state.cart);
 	const itemsValues = Object.values(items);
 
 	const onClearCartClick = () => {
@@ -46,9 +47,20 @@ const Cart = () => {
 	};
 
 	return (
-		<div className="wrapper">
+		<div className="wrapper cart-wrapper">
 			<div className="container container--medium">
-				<div className="cart">
+				{ isCheckouting ? <div className="loader-wrapper">
+						<Oval
+							ariaLabel="loading-indicator"
+							height={100}
+							width={100}
+							strokeWidth={5}
+							strokeWidthSecondary={2}
+							color="#fe5f1e"
+							secondaryColor="white"
+						/>
+					</div> :
+					<div className="cart">
 					<div className="cart__top">
 						<h2 className="content__title">
 							<CartIcon />
@@ -56,9 +68,10 @@ const Cart = () => {
 						</h2>
 						{itemsValues.length ? <ClearCart onClick={onClearCartClick} /> : ""}
 					</div>
-					<div className="content__items">
-						{itemsValues.length
-							? itemsValues.map(
+					<div>
+						<div className="content__items">
+							{itemsValues.length
+								? itemsValues.map(
 									({ item, selectedProps, count, totalPrice }) => {
 										const id = `${item.id}_${selectedProps.type}_${selectedProps.size}`;
 										return (
@@ -75,44 +88,45 @@ const Cart = () => {
 											/>
 										);
 									}
-							  )
-							: ""}
-					</div>
-					<div className="cart__bottom">
-						{itemsValues.length ? (
-							<div>
-								{" "}
-								<div className="cart__bottom-details">
+								)
+								: ""}
+						</div>
+						<div className="cart__bottom">
+							{itemsValues.length ? (
+								<div>
+									{" "}
+									<div className="cart__bottom-details">
 									<span>
 										{" "}
 										Total count: <b>{totalCount} pieces</b>{" "}
 									</span>
-									<span>
+										<span>
 										{" "}
-										Total price: <b>{totalPrice} $</b>{" "}
+											Total price: <b>{totalPrice} $</b>{" "}
 									</span>
-								</div>
-								<div className="cart__bottom-buttons">
-									<Link to="/">
-										{" "}
-										<Button
-											href="/"
-											className="button--outline button--add go-back-btn"
-										>
-											<GoBackIcon />
-											<span>Go back</span>
+									</div>
+									<div className="cart__bottom-buttons">
+										<Link to="/">
+											{" "}
+											<Button
+												href="/"
+												className="button--outline button--add go-back-btn"
+											>
+												<GoBackIcon />
+												<span>Go back</span>
+											</Button>
+										</Link>
+										<Button className="pay-btn" onClick={onBuyButtonClick}>
+											<span>Checkout</span>
 										</Button>
-									</Link>
-									<Button className="pay-btn" onClick={onBuyButtonClick}>
-										<span>Checkout</span>
-									</Button>
+									</div>
 								</div>
-							</div>
-						) : (
-							<h3>Cart is empty</h3>
-						)}
+							) : (
+								<h3>Cart is empty</h3>
+							)}
+						</div>
 					</div>
-				</div>
+				</div>}
 			</div>
 		</div>
 	);

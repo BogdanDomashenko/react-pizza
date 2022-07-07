@@ -8,6 +8,7 @@ const initialState = {
 		totalCount: 0,
 	},
 	authError: null,
+	isLoading: false,
 };
 
 const user = (state = initialState, action) => {
@@ -36,6 +37,12 @@ const user = (state = initialState, action) => {
 		}
 		case "RESET_USER": {
 			return initialState;
+		}
+		case "SET_USER_LOADING": {
+			return {
+				...state,
+				isLoading: action.payload,
+			}
 		}
 		default:
 			return state;

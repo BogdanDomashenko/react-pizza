@@ -22,3 +22,4 @@ export { default as PizzaLoadingBlock } from "./PizzaBlock/LoadingBlock";
 export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as Users } from "./Admin/Users/Users";
 export { default as OrderCard } from "./Order/OrderCard";
+export { default as Loader } from "./Loader";

@@ -2,7 +2,8 @@ import {
 	checkoutOrder,
 	phantomCheckoutOrderQury,
 } from "../../services/order.service";
-import { ROLES } from "../../utils/constants";
+import {MODALS, ROLES} from "../../utils/constants";
+import {toggleModalVisibility} from "./modals";
 
 export const addCartItem = (item) => {
 	return {
@@ -52,7 +53,14 @@ export const setOrderId = (id) => {
 	};
 };
 
+const setCheckouting = (value) => ({
+	type: "SET_CHECKOUTING",
+	payload: value,
+})
+
 export const checkoutCart = (number) => async (dispatch, getState) => {
+	dispatch(setCheckouting(true));
+
 	const state = getState();
 	const items = Object.values(state.cart.items);
 	const orderList = items.map(({ item, selectedProps, count }) => ({
@@ -68,11 +76,13 @@ export const checkoutCart = (number) => async (dispatch, getState) => {
 				? await phantomCheckoutOrderQury(number, orderList)
 				: await checkoutOrder(orderList);
 		dispatch(resetCart());
+		dispatch(setCheckouting(false));
 		dispatch(
 			setCheckoutCartMessenge(
 				"Your order has been received. Please wait for a call from the operator"
 			)
 		);
+		dispatch(toggleModalVisibility(MODALS.СheckoutResultModal));
 		dispatch(setOrderId(data.id));
 	} catch (error) {
 		dispatch(setCheckoutCartMessenge(error.response.data.message));

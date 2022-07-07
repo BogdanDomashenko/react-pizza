@@ -18,7 +18,6 @@ const СheckoutModal = () => {
 	const onConfirmModal = () => {
 		dispatch(checkoutCart(phone));
 		dispatch(toggleModalVisibility(MODALS.СheckoutModal));
-		dispatch(toggleModalVisibility(MODALS.СheckoutResultModal));
 	};
 
 	useEffect(() => {

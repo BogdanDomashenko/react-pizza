@@ -4,6 +4,7 @@ const initialState = {
   totalCount: 0,
   checkoutMessenge: null,
   orderId: null,
+  isCheckouting: false,
 };
 
 const cart = (state = initialState, action) => {
@@ -113,6 +114,12 @@ const cart = (state = initialState, action) => {
         ...state,
         orderId: action.payload,
       };
+    }
+    case "SET_CHECKOUTING": {
+      return  {
+        ...state,
+        isCheckouting: action.payload,
+      }
     }
     default:
       return state;

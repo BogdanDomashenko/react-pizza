@@ -517,6 +517,10 @@ body {
 	margin: 0 auto;
 	border-radius: 10px;
 	max-width: 1400px;
+	min-height: calc(100vh - 100px);
+}
+.cart-wrapper {
+	min-height: calc(100vh - 400px);
 }
 .content {
 	padding: 40px 0;
@@ -1222,6 +1226,14 @@ body {
 
 .checkout-modal__phone input {
 	width: 100% !important;
+}
+
+.loader-wrapper {
+	position: absolute;
+	top: 50%;
+	/* transform: translateY(-50%); */
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 /* medium devices */
