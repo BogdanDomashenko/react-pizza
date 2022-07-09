@@ -23,9 +23,6 @@ import {
     SignUp,
 } from "./pages";
 import {ROLES} from "./utils/constants";
-import {getAccessToken} from "./services/localStorage.service";
-import {useDispatch} from "react-redux";
-import {logout} from "./redux/actions/user";
 
 function App() {
     const isAuth = useRole() !== ROLES.phantom;

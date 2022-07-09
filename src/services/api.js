@@ -54,6 +54,9 @@ api.interceptors.response.use(
                     api.defaults.headers.common["Authorization"] = getAccessToken();
                     return api(originalRequest);
                 }
+            }).catch(() => {
+                originalRequest.headers.Authorization = "";
+                return api(originalRequest);
             });
         }
         return Promise.reject(error);
