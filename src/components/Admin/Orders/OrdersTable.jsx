@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { usePagination } from "../../../hooks";
-import { getOrders } from "../../../redux/actions/admin";
-import { ORDER_STATUSES } from "../../../utils/constants";
-import { Pagination } from "../../";
-import { SelectPopup } from "../../ui";
+import React, {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {usePagination} from "../../../hooks";
+import {getOrders} from "../../../redux/actions/admin";
+import {ORDER_STATUSES} from "../../../utils/constants";
+import {Pagination} from "../../";
+import {SelectPopup} from "../../ui";
 import Order from "./Order";
 
-const OrdersTable = ({ orders, totalCount, editing }) => {
+const OrdersTable = ({orders, totalCount, editing}) => {
 	const dispatch = useDispatch();
 	const [filterStatusName, setFilterStatusName] = useState("All");
-
+	
 	const [filteredOrders, setFilteredOrders] = useState(orders);
-
+	
 	const pagination = usePagination(totalCount, 8);
 	const statusesList = Object.values(ORDER_STATUSES);
-
+	
 	useEffect(() => {
 		dispatch(getOrders(pagination.page, pagination.rowsPerPage));
 	}, [pagination.page]);
-
+	
 	useEffect(() => {
 		if (filterStatusName === "All") {
 			setFilteredOrders(orders);
@@ -29,11 +29,11 @@ const OrdersTable = ({ orders, totalCount, editing }) => {
 			);
 		}
 	}, [filterStatusName, orders]);
-
+	
 	const onSelectStatus = (status) => {
 		setFilterStatusName(status);
 	};
-
+	
 	return (
 		<div className="orders">
 			<div className="orders__filter">
@@ -57,7 +57,6 @@ const OrdersTable = ({ orders, totalCount, editing }) => {
 							<th>status</th>
 							<th>date</th>
 							<th>View</th>
-							{editing ? <th>Update</th> : <th></th>}
 						</tr>
 						</thead>
 						<tbody>

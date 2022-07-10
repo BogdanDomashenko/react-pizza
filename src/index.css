@@ -1100,6 +1100,10 @@ body {
     margin: 0 auto;
 }
 
+.admin-dashboard__content .table {
+    position: relative;
+}
+
 .orders__filter {
     margin-bottom: 20px;
 }
