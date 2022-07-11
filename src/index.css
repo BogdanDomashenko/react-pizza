@@ -1490,7 +1490,7 @@ body {
     }
 
     .cart__bottom-buttons .go-back-btn {
-        width: 150px;
+        width: 100%;
     }
 
     .cart__bottom-buttons .pay-btn {
@@ -1564,5 +1564,13 @@ body {
         height: 35px;
         width: 22px;
         flex-wrap: wrap;
+    }
+
+    .container--medium {
+        margin: 0 auto;
+    }
+
+    .cart__bottom__button {
+        width: 45%;
     }
 }
