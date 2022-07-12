@@ -1,25 +1,24 @@
 import classNames from "classnames";
-import React, { useState } from "react";
-import { formatDate } from "../../utils/helpers";
-import CartItem from "../Cart/CartItem";
-import { Button } from "../ui";
+import React, {useState} from "react";
 import OrderCardItem from "./OrderCardItem";
+import {useLocale} from "../../hooks";
 
 const OrderCard = ({
-	className,
-	id,
-	status,
-	createdAt,
-	pizzas,
-	totalOrderPrice,
-}) => {
+	                   className,
+	                   id,
+	                   status,
+	                   createdAt,
+	                   pizzaOrders,
+	                   totalOrderPrice,
+                   }) => {
 	const date = new Date(createdAt);
+	const locale = useLocale();
 	const [orderCartActive, setOrderCartActive] = useState(false);
-
+	
 	const orderCartClick = () => {
 		setOrderCartActive(!orderCartActive);
 	};
-
+	
 	return (
 		<div
 			className={classNames("order-card", {
@@ -32,7 +31,7 @@ const OrderCard = ({
 					<span className="text">id: {id}</span>
 				</div>
 				<div className="order-cart__item">
-					<span className="text">{pizzas.length} pieces</span>
+					<span className="text">{pizzaOrders.length} pieces</span>
 				</div>
 				<div className="order-cart__item order-cart__item--price">
 					<span className="text">{totalOrderPrice}$</span>
@@ -41,13 +40,13 @@ const OrderCard = ({
 					<span className="text">{status}</span>
 				</div>
 				<div className="order-cart__item order-cart__item--date">
-					<span className="text">{formatDate(date)}</span>
+					<span className="text">{date.toLocaleString(locale)}</span>
 				</div>
 			</div>
 			<div className="order-cart__dropdown">
 				<div className="order-cart__dropdown-items">
-					{pizzas.map((pizza) => (
-						<OrderCardItem key={pizza.id} {...pizza} />
+					{pizzaOrders.map((pizza) => (
+						<OrderCardItem key={pizza.id + "_" + pizza.props} {...pizza} />
 					))}
 				</div>
 			</div>

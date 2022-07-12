@@ -33,7 +33,7 @@ const admin = (state = initialState, action) => {
 					...state,
 					list: state.orders.list.map((order) =>
 						order.id === action.payload.id
-							? { ...order, status: action.payload.status }
+							? {...order, status: action.payload.status}
 							: order
 					),
 				},
@@ -48,11 +48,14 @@ const admin = (state = initialState, action) => {
 		case "SET_ADMIN_PIZZA_ITEM": {
 			return {
 				...state,
-				pizzas: state.pizzas.list.map((pizza) =>
-					pizza.id === action.payload.id
-						? { id: action.payload.id, ...action.payload.item }
-						: pizza
-				),
+				pizzas: {
+					...state.pizzas,
+					list: state.pizzas.list.map((pizza) =>
+						pizza.id === action.payload.id
+							? {id: action.payload.id, ...action.payload.item}
+							: pizza
+					)
+				},
 			};
 		}
 		case "SET_ADMIN_ERROR": {
@@ -75,11 +78,11 @@ const admin = (state = initialState, action) => {
 					list: state.stockPizzas.list.map((pizza) =>
 						action.payload.id === pizza.id
 							? {
-									...pizza,
-									sizes: pizza.sizes.filter(
-										(size) => size !== action.payload.size
-									),
-							  }
+								...pizza,
+								sizes: pizza.sizes.filter(
+									(size) => size !== action.payload.size
+								),
+							}
 							: pizza
 					),
 				},
@@ -93,11 +96,11 @@ const admin = (state = initialState, action) => {
 					list: state.stockPizzas.list.map((pizza) =>
 						action.payload.id === pizza.id
 							? {
-									...pizza,
-									types: pizza.types.filter(
-										(type) => type !== action.payload.type
-									),
-							  }
+								...pizza,
+								types: pizza.types.filter(
+									(type) => type !== action.payload.type
+								),
+							}
 							: pizza
 					),
 				},
@@ -111,9 +114,9 @@ const admin = (state = initialState, action) => {
 					list: state.stockPizzas.list.map((pizza) =>
 						action.payload.id === pizza.id
 							? {
-									...pizza,
-									sizes: [...pizza.sizes, action.payload.size],
-							  }
+								...pizza,
+								sizes: [...pizza.sizes, action.payload.size],
+							}
 							: pizza
 					),
 				},
@@ -127,9 +130,9 @@ const admin = (state = initialState, action) => {
 					list: state.stockPizzas.list.map((pizza) =>
 						action.payload.id === pizza.id
 							? {
-									...pizza,
-									types: [...pizza.types, action.payload.type],
-							  }
+								...pizza,
+								types: [...pizza.types, action.payload.type],
+							}
 							: pizza
 					),
 				},
@@ -143,10 +146,10 @@ const admin = (state = initialState, action) => {
 					list: state.stockPizzas.list.map((pizza) =>
 						action.payload.id === pizza.id
 							? {
-									...pizza,
-									sizes: action.payload.sizes.map((size) => size.name),
-									types: action.payload.types.map((type) => type.name),
-							  }
+								...pizza,
+								sizes: action.payload.sizes.map((size) => size.name),
+								types: action.payload.types.map((type) => type.name),
+							}
 							: pizza
 					),
 				},
@@ -160,10 +163,10 @@ const admin = (state = initialState, action) => {
 					list: state.stockPizzas.list.map((pizza) =>
 						action.payload === pizza.id
 							? {
-									...pizza,
-									sizes: [],
-									types: [],
-							  }
+								...pizza,
+								sizes: [],
+								types: [],
+							}
 							: pizza
 					),
 				},
@@ -213,7 +216,7 @@ const admin = (state = initialState, action) => {
 				...state,
 				users: state.users.map((user) =>
 					user.id === action.payload.id
-						? { ...user, role: action.payload.role }
+						? {...user, role: action.payload.role}
 						: user
 				),
 			};

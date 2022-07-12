@@ -7,56 +7,56 @@ import {Pagination} from "../../";
 import StockItem from "./StockItem";
 
 const Stock = () => {
-    const dispatch = useDispatch();
-
-    const pizzaSizes = usePizzaSizes();
-    const pizzaTypes = usePizzaTypes();
-    const {list: stockPizzas, totalCount} = useSelector(
-        (state) => state.admin.stockPizzas
-    );
-
-    const pagination = usePagination(totalCount, 5);
-
-    useEffect(() => {
-        dispatch(getAdminAllStockPizzas(pagination.page, pagination.rowsPerPage));
-    }, [pagination.page]);
-    
-
-    return (
-        <div className="stock">
-            <div className="stock__content">
-                <div className="overflow-x-auto">
-                    <table className="table stock-table">
-                        <thead>
-                        <tr>
-                            <th>available</th>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>available sizes</th>
-                            <th>available types</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {stockPizzas.length &&
-                            pizzaSizes && pizzaTypes &&
-                            stockPizzas.map((pizza) => (
-                                <StockItem
-                                    key={pizza.id}
-                                    id={pizza.id}
-                                    name={pizza.name}
-                                    sizes={pizzaSizes}
-                                    types={pizzaTypes}
-                                    availableSizes={pizza.sizes}
-                                    availableTypes={pizza.types}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                {totalCount ? <Pagination {...pagination} /> : ""}
-            </div>
-        </div>
-    );
+	const dispatch = useDispatch();
+	
+	const pizzaSizes = usePizzaSizes();
+	const pizzaTypes = usePizzaTypes();
+	const {list: stockPizzas, totalCount} = useSelector(
+		(state) => state.admin.stockPizzas
+	);
+	
+	const pagination = usePagination(totalCount, 5);
+	
+	useEffect(() => {
+		dispatch(getAdminAllStockPizzas(pagination.page, pagination.rowsPerPage));
+	}, [pagination.page]);
+	
+	
+	return (
+		<div className="stock">
+			<div className="stock__content">
+				<div className="overflow-x-auto">
+					<table className="table stock-table">
+						<thead>
+						<tr>
+							<th>available</th>
+							<th>id</th>
+							<th>name</th>
+							<th>available sizes</th>
+							<th>available types</th>
+						</tr>
+						</thead>
+						<tbody>
+						{stockPizzas.length ?
+							pizzaSizes && pizzaTypes &&
+							stockPizzas.map((pizza) => (
+								<StockItem
+									key={pizza.id}
+									id={pizza.id}
+									name={pizza.name}
+									sizes={pizzaSizes}
+									types={pizzaTypes}
+									availableSizes={pizza.sizes}
+									availableTypes={pizza.types}
+								/>
+							)) : ""}
+						</tbody>
+					</table>
+				</div>
+				{totalCount ? <Pagination {...pagination} /> : ""}
+			</div>
+		</div>
+	);
 };
 
 export default Stock;

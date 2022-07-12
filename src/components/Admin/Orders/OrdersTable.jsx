@@ -61,16 +61,18 @@ const OrdersTable = ({orders, totalCount, editing}) => {
 						</thead>
 						<tbody>
 						{filteredOrders.map((order) => (
-							<Order
-								key={order.id}
-								id={order.id}
-								user={order.user}
-								count={order.pizzas.length}
-								status={order.status}
-								date={order.createdAt}
-								price={order.totalOrderPrice}
-								editing={editing}
-							/>
+							order.pizzas ?
+								<Order
+									key={order.id}
+									id={order.id}
+									user={order.user}
+									count={order.pizzas.length}
+									status={order.status}
+									date={order.createdAt}
+									price={order.totalOrderPrice}
+									editing={editing}
+								/>
+								: ""
 						))}
 						</tbody>
 					</table>
