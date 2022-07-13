@@ -9,8 +9,8 @@ const PropertyItem = ({ properties, onChangeIssetItem, onAddItem }) => {
 		setAddFormVisible(true);
 	};
 
-	const addItemHandler = () => {
-		onAddItem();
+	const addItemHandler = (value) => {
+		onAddItem(value);
 		setAddFormVisible(false);
 	};
 

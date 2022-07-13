@@ -88,13 +88,13 @@ const pizzas = (state = initialState, action) => {
 		case "ADD_PIZZA_SIZE": {
 			return {
 				...state,
-				sizes: [...state.sizes, action.payload.size],
+				sizes: [...state.sizes, action.payload],
 			};
 		}
 		case "ADD_PIZZA_TYPE": {
 			return {
 				...state,
-				types: [...state.types, action.payload.type],
+				types: [...state.types, action.payload],
 			};
 		}
 		case "RESET_PIZZAS": {
