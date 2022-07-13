@@ -57,6 +57,7 @@
     "json-loader": "0.5.4",
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",
+    "prettier": "2.7.1",
     "promise": "7.1.1",
     "react-app-rewired": "^2.2.1",
     "react-dev-utils": "^0.5.2",

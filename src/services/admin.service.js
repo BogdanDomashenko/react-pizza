@@ -85,3 +85,23 @@ export const setUserRoleQuery = async (id, role) => {
 
 	return response.data;
 };
+
+export const changeSizeQuery = async (size) => {
+	const response = await protectedApi.post("pizza/update-size", size);
+	return response.data;
+};
+
+export const changeTypeQuery = async (type) => {
+	const response = await protectedApi.post("pizza/update-type", type);
+	return response.data;
+};
+
+export const addSizeQuery = async (size) => {
+	const response = await protectedApi.post("pizza/add-size", size);
+	return response.data;
+};
+
+export const addTypeQuery = async (type) => {
+	const response = await protectedApi.post("pizza/add-type", type);
+	return response.data;
+};
