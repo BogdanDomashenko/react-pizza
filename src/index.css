@@ -1432,6 +1432,8 @@ body {
 
 .properties__add {
 	display: flex;
+	align-items: center;
+	min-height: 60px;
 }
 
 .properties__add button {
