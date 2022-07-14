@@ -1431,7 +1431,11 @@ body {
 }
 
 .properties__add {
-	margin-top: 20px;
+	display: flex;
+}
+
+.properties__add button {
+	height: 40px;
 }
 
 /* medium devices */
