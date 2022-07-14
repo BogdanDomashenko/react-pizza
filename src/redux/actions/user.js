@@ -40,12 +40,12 @@ export const setOrders = (orders) => {
 	};
 };
 
-const setUserLoading = (value) => {
+export const setUserLoading = (value) => {
 	return {
 		type: "SET_USER_LOADING",
-		payload: value
-	}
-}
+		payload: value,
+	};
+};
 
 export const getUserOrders = (page, size) => async (dispatch) => {
 	try {

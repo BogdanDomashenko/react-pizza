@@ -2,8 +2,8 @@ import {
 	checkoutOrder,
 	phantomCheckoutOrderQury,
 } from "../../services/order.service";
-import {MODALS, ROLES} from "../../utils/constants";
-import {toggleModalVisibility} from "./modals";
+import { MODALS, ROLES } from "../../utils/constants";
+import { toggleModalVisibility } from "./modals";
 
 export const addCartItem = (item) => {
 	return {
@@ -53,10 +53,10 @@ export const setOrderId = (id) => {
 	};
 };
 
-const setCheckouting = (value) => ({
+export const setCheckouting = (value) => ({
 	type: "SET_CHECKOUTING",
 	payload: value,
-})
+});
 
 export const checkoutCart = (number) => async (dispatch, getState) => {
 	dispatch(setCheckouting(true));
