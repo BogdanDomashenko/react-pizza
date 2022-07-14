@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Button, Input } from "../../../ui";
 
-const PropertyItemForm = ({ id, name, price, onSubmit, buttonName }) => {
+const PropertyItemForm = ({
+	id,
+	name,
+	price,
+	onSubmit,
+	buttonName,
+	onDelete,
+}) => {
 	const [isFormChanged, setIsFormChanged] = useState(false);
 
 	const formik = useFormik({
@@ -24,6 +31,10 @@ const PropertyItemForm = ({ id, name, price, onSubmit, buttonName }) => {
 			setIsFormChanged(false);
 		}
 	}, [formik.values]);
+
+	const deleteButtonClick = () => {
+		onDelete(id);
+	};
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
@@ -49,13 +60,18 @@ const PropertyItemForm = ({ id, name, price, onSubmit, buttonName }) => {
 					value={formik.values.price}
 				/>
 			</div>
-			<Button
-				className="button--default"
-				type="submit"
-				style={{ visibility: isFormChanged ? "visible" : "hidden" }}
-			>
-				{buttonName}
-			</Button>
+			<div className="properties__action-buttons">
+				<Button className="button--danger" onClick={deleteButtonClick}>
+					Delete
+				</Button>
+				<Button
+					className="button--default properties__update-btn"
+					type="submit"
+					style={{ visibility: isFormChanged ? "visible" : "hidden" }}
+				>
+					{buttonName}
+				</Button>
+			</div>
 		</form>
 	);
 };

@@ -105,3 +105,13 @@ export const addTypeQuery = async (type) => {
 	const response = await protectedApi.post("pizza/add-type", type);
 	return response.data;
 };
+
+export const deleteSizeQuery = async (id) => {
+	const response = await protectedApi.post("pizza/delete-size", { id });
+	return response.data;
+};
+
+export const deleteTypeQuery = async (id) => {
+	const response = await protectedApi.post("pizza/delete-type", { id });
+	return response.data;
+};

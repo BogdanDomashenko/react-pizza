@@ -3,6 +3,8 @@ import {
 	addTypeQuery,
 	changeSizeQuery,
 	changeTypeQuery,
+	deleteSizeQuery,
+	deleteTypeQuery,
 	fetchAdminPizzas,
 	fetchAdminUsers,
 	fetchAllStockPizzas,
@@ -21,6 +23,8 @@ import { addPizzaQuery, deletePizzaQuery } from "../../services/pizza.service";
 import {
 	addPizzaSize,
 	addPizzaType,
+	deletePizzaSize,
+	deletePizzaType,
 	getPizzaSizes,
 	getPizzaTypes,
 	setPizzaSize,
@@ -333,6 +337,24 @@ export const addPizzaSizeAdmin = (size) => async (dispatch) => {
 	try {
 		const newSize = await addSizeQuery(size);
 		dispatch(addPizzaSize(newSize));
+	} catch (error) {
+		dispatch(setTimeoutAdminError(error.response.data.message));
+	}
+};
+
+export const deleteAdminPizzaSize = (id) => async (dispatch) => {
+	try {
+		await deleteSizeQuery(id);
+		dispatch(deletePizzaSize(id));
+	} catch (error) {
+		dispatch(setTimeoutAdminError(error.response.data.message));
+	}
+};
+
+export const deleteAdminPizzaType = (id) => async (dispatch) => {
+	try {
+		await deleteTypeQuery(id);
+		dispatch(deletePizzaType(id));
 	} catch (error) {
 		dispatch(setTimeoutAdminError(error.response.data.message));
 	}

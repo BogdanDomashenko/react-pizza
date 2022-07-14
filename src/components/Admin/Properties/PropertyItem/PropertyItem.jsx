@@ -2,16 +2,25 @@ import React, { useState } from "react";
 import PropertyItemForm from "./PropertyItemForm";
 import { Button } from "../../../ui";
 
-const PropertyItem = ({ properties, onChangeIssetItem, onAddItem }) => {
+const PropertyItem = ({
+	properties,
+	onChangeIssetItem,
+	onAddItem,
+	onDeleteItem,
+}) => {
 	const [addFormVisible, setAddFormVisible] = useState(false);
 
+	const toggleAddForm = () => {
+		setAddFormVisible(!addFormVisible);
+	};
+
 	const addButtonClick = () => {
-		setAddFormVisible(true);
+		toggleAddForm();
 	};
 
 	const addItemHandler = (value) => {
 		onAddItem(value);
-		setAddFormVisible(false);
+		toggleAddForm();
 	};
 
 	return (
@@ -22,17 +31,19 @@ const PropertyItem = ({ properties, onChangeIssetItem, onAddItem }) => {
 						{...item}
 						buttonName="Update"
 						onSubmit={onChangeIssetItem}
+						onDelete={onDeleteItem}
 					/>
 				</div>
 			))}
 			<div className="properties__column properties__add">
 				{addFormVisible ? (
 					<PropertyItemForm
-						id={properties.length}
+						id={properties.length + 1}
 						name=""
 						price=""
 						buttonName="Add"
 						onSubmit={addItemHandler}
+						onDelete={toggleAddForm}
 					/>
 				) : (
 					<Button className="button--default" onClick={addButtonClick}>

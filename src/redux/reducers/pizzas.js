@@ -97,6 +97,18 @@ const pizzas = (state = initialState, action) => {
 				types: [...state.types, action.payload],
 			};
 		}
+		case "DELETE_PIZZA_SIZE": {
+			return {
+				...state,
+				sizes: state.sizes.filter((size) => size.id !== action.payload),
+			};
+		}
+		case "DELETE_PIZZA_TYPE": {
+			return {
+				...state,
+				types: state.types.filter((type) => type.id !== action.payload),
+			};
+		}
 		case "RESET_PIZZAS": {
 			return initialState;
 		}

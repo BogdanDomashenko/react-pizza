@@ -58,6 +58,16 @@ export const addPizzaType = (type) => ({
 	payload: type,
 });
 
+export const deletePizzaSize = (id) => ({
+	type: "DELETE_PIZZA_SIZE",
+	payload: id,
+});
+
+export const deletePizzaType = (id) => ({
+	type: "DELETE_PIZZA_TYPE",
+	payload: id,
+});
+
 export const fetchPizzas = (page, size, category) => async (dispatch) => {
 	dispatch(setLoaded(false));
 	const pizzas = await fetchAviablePizzas(page, size, category);
