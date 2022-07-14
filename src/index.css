@@ -167,8 +167,6 @@ a {
 .input input:focus {
 	border-color: #1976d2;
 	box-shadow: 0 0 0 1px #1976d2;
-	margin-bottom: -2px;
-	margin-right: -2px;
 }
 
 .input__label {
